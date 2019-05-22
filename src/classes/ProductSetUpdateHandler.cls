@@ -1,10 +1,10 @@
 public with sharing class ProductSetUpdateHandler {
-    public static void updateTotalPrice(){        
+    public static void updateTotalPrice(List<Set_Item__c> setItems){
         
-        List<Set_Item__c> setItems = [SELECT Id, Product_Item__c, Product_Set__c FROM Set_Item__c];
+        //List<Set_Item__c> setItems = [SELECT Id, Product_Item__c, Product_Set__c FROM Set_Item__c];
         List<Product_Set__c> productSetList = [SELECT Id, Total_Price__c FROM Product_Set__c]; 
         List<Product_Item__c> productItemList = [SELECT Id, Price__c FROM Product_Item__c];
-        
+
         for (Product_Set__c productSet : productSetList){
             Decimal count = 0;
         	for(Set_Item__c setItem: setItems){        	
@@ -21,9 +21,9 @@ public with sharing class ProductSetUpdateHandler {
         update productSetList;
     }
     
-    public static void updateHighestItemPrice(){
+    public static void updateHighestItemPrice(List<Set_Item__c> setItems){
         
-       List<Set_Item__c> setItems = [SELECT Id, Product_Item__c, Product_Set__c FROM Set_Item__c];
+        //List<Set_Item__c> setItems = [SELECT Id, Product_Item__c, Product_Set__c FROM Set_Item__c];
         List<Product_Set__c> productSetList = [SELECT Id, Highest_Item_Price__c FROM Product_Set__c]; 
         List<Product_Item__c> productItemList = [SELECT Id, Price__c FROM Product_Item__c];
         
