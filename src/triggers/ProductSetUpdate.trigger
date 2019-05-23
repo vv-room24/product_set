@@ -2,17 +2,24 @@ trigger ProductSetUpdate on Set_Item__c (after insert, after update, after delet
 	
     if (Trigger.isAfter && Trigger.isInsert) {
         /*ProductSetUpdateHandler.updateTotalPrice();
-        ProductSetUpdateHandler.updateHighestItemPrice();*/
-        ProductSetter.updateTotalPrice(Trigger.new);
-	}
+        ProductSetUpdateHandler.updateHighestItemPrice();
+        ProductSetter ps = new ProductSetter(Trigger.new);
+        ps.updateTotalPrice();
+        ps.updateHighestItemPrice();*/
+        ProductSetter psUpdater = new ProductSetter(Trigger.new);
+        psUpdater.updateTotalPrice();
+        psUpdater.updateHighestItemPrice();
+    }
     
     if (Trigger.isAfter && Trigger.isUpdate) {
-        ProductSetUpdateHandler.updateTotalPrice();
-        ProductSetUpdateHandler.updateHighestItemPrice();
+        ProductSetter psUpdater = new ProductSetter(Trigger.new);
+        psUpdater.updateTotalPrice();
+        psUpdater.updateHighestItemPrice();
     }
     
     if (Trigger.isAfter && Trigger.isDelete) {
-        ProductSetUpdateHandler.updateTotalPrice();
-        ProductSetUpdateHandler.updateHighestItemPrice();
+        ProductSetter psUpdater = new ProductSetter(Trigger.new);
+        psUpdater.updateTotalPrice();
+        psUpdater.updateHighestItemPrice();
     }
 }

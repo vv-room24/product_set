@@ -1,6 +1,9 @@
-@isTest
-public class ProductSetUpdateHandlerTest {
+/**
+ * Created by vvermiichuk on 23.05.2019.
+ */
 
+@IsTest
+private class ProductSetUpdaterTest {
     @testSetup
     public static void setup(){
         Product_Item__c pItem1 = new Product_Item__c(
@@ -37,27 +40,27 @@ public class ProductSetUpdateHandlerTest {
     @isTest
     public static void updateTotalPriceTest(){
 
-        Test.startTest();    	
-        	ProductSetUpdateHandler.updateTotalPrice();
-    	Test.stopTest();
-        
+        Test.startTest();
+        ProductSetUpdater.updateTotalPrice();
+        Test.stopTest();
+
         List<Product_Set__c> newProductSet = [SELECT Id, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
         Decimal newTotalPrice = newProductSet[0].Total_Price__c;
-     
-    	System.assertEquals(newTotalPrice, 55 );
+
+        System.assertEquals(newTotalPrice, 55 );
     }
-    
-   	@isTest
+
+    @isTest
     public static void updateHighestItemPriceTest(){
 
-        Test.startTest();    	
-        	ProductSetUpdateHandler.updateHighestItemPrice();
-    	Test.stopTest();  
-        
+        Test.startTest();
+        ProductSetUpdater.updateHighestItemPrice();
+        Test.stopTest();
+
         List<Product_Set__c> newProductSet = [SELECT Id, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
         Decimal newTotalPrice = newProductSet[0].Highest_Item_Price__c;
-     
-    	System.assertEquals(newTotalPrice, 30);
+
+        System.assertEquals(newTotalPrice, 30);
     }
 
 }

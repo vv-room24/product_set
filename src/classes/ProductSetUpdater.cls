@@ -1,4 +1,4 @@
-public with sharing class ProductSetUpdateHandler {
+public with sharing class ProductSetUpdater {
 
     public static void updateTotalPrice(){
 
