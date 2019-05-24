@@ -5,15 +5,15 @@
 @IsTest
 private class ProductSetPriceHandlerTest {
 
-    @testSetup
-    public static void setup(){
+    public static List <Set_Item__c> dataForUpdate(){
+
         Product_Item__c pItem1 = new Product_Item__c(
-                Name = 'Whisky',
+                Name = 'Gin',
                 Price__c = 30,
                 Category__c = 'drinks');
 
         Product_Item__c pItem2 = new Product_Item__c(
-                Name = 'Rom',
+                Name = 'Juice',
                 Price__c = 25,
                 Category__c = 'drinks');
 
@@ -34,40 +34,40 @@ private class ProductSetPriceHandlerTest {
                 Product_Set__c = pSet.Id,
                 Product_Item__c = pItem2.Id);
 
-        /*List <Set_Item__c> testItems = new List<Set_Item__c>();
+        List <Set_Item__c> testItems = new List<Set_Item__c>();
         testItems.add(sItem1);
         testItems.add(sItem2);
-        insert testItems;*/
-
-        insert sItem1;
-        insert sItem2;
+        return testItems;
+//
+//        insert sItem1;
+//        insert sItem2;
     }
 
     @isTest
     public static void updateTotalPriceTest(){
 
         Test.startTest();
-        ProductSetPriceHandler productSetPriceHandler = new ProductSetPriceHandler(Trigger.new);
-        productSetPriceHandler.updateTotalPrice();
+        List <Set_Item__c> testSetItems = dataForUpdate();
+        insert testSetItems;
         Test.stopTest();
 
-        List<Product_Set__c> newProductSet = [SELECT Id, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
+        List<Product_Set__c> newProductSet = [SELECT Id, Name, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
         Decimal newTotalPrice = newProductSet[0].Total_Price__c;
 
-        System.assertEquals(newTotalPrice, 55 );
+        System.assertEquals(55, newTotalPrice);
     }
 
     @isTest
     public static void updateHighestItemPriceTest(){
 
         Test.startTest();
-        ProductSetPriceHandler productSetPriceHandler = new ProductSetPriceHandler(Trigger.new);
-        productSetPriceHandler.updateHighestItemPrice();
+        List <Set_Item__c> testSetItems = dataForUpdate();
+        insert testSetItems;
         Test.stopTest();
 
         List<Product_Set__c> newProductSet = [SELECT Id, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
-        Decimal newTotalPrice = newProductSet[0].Highest_Item_Price__c;
+        Decimal newHighestItemPrice = newProductSet[0].Highest_Item_Price__c;
 
-        System.assertEquals(newTotalPrice, 30);
+        System.assertEquals(30, newHighestItemPrice);
     }
 }
