@@ -4,10 +4,10 @@
 
 public with sharing class ProductSetter {
 
-    Map <Id, Set_Item__c> productSIMap = new Map <Id, Set_Item__c>();
-    Map <Id, Product_Set__c> setMap = new Map <Id, Product_Set__c>();
-    Map <Id, Product_Set__c> setHighPriceMap = new Map <Id, Product_Set__c>();
-    List <Set_Item__c> siItems;
+    static Map <Id, Set_Item__c> productSIMap = new Map <Id, Set_Item__c>();
+    static Map <Id, Product_Set__c> setMap = new Map <Id, Product_Set__c>();
+    static Map <Id, Product_Set__c> setHighPriceMap = new Map <Id, Product_Set__c>();
+    static List <Set_Item__c> siItems;
 
     public ProductSetter(List <Set_Item__c> items) {
         productSIMap = new Map <Id, Set_Item__c>([SELECT Id, Product_Item__r.Price__c
