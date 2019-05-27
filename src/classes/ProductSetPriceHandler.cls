@@ -5,6 +5,11 @@
 public with sharing class ProductSetPriceHandler {
 
     List <Set_Item__c> siList;
+    List <Set_Item__c> newPriceList = [SELECT
+            Product_Item__r.Price__c,
+            Product_Set__r.Id,
+            Product_Set__r.Highest_Item_Price__c
+    FROM Set_Item__c];
 
     public ProductSetPriceHandler(List <Set_Item__c> setItems){
         List <Set_Item__c> retrieveSIList = [SELECT
@@ -16,6 +21,7 @@ public with sharing class ProductSetPriceHandler {
                                             WHERE Id IN :setItems];
         siList = retrieveSIList;
     }
+
 
     public void updateTotalPrice(){
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
@@ -36,28 +42,61 @@ public with sharing class ProductSetPriceHandler {
         upsert productSetsToUpdate.values();
     }
 
-    public void updateHighestItemPrice() {
+    public void updateHighestItemPrice(){
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
-        Map <Id,Product_Item__c> productPrices = new Map<Id,Product_Item__c>();
-        Product_Item__c maxPriceProduct = new Product_Item__c(Price__c = 0);
         for (Set_Item__c setItem : siList){
-            productPrices.put(setItem.Product_Item__r.Id, setItem.Product_Item__r);
-            for (Product_Item__c product : productPrices.values()){
-                if (product.Price__c > maxPriceProduct.Price__c){
-                    maxPriceProduct = product;
-                }
-            }
-            if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
-//                if (setItem.Product_Item__r.Price__c > setItem.Product_Set__r.Highest_Item_Price__c) {
+            if(setItem.Product_Set__r.Highest_Item_Price__c < setItem.Product_Item__r.Price__c){
+                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
                     Product_Set__c ps = new Product_Set__c(
                             Id = setItem.Product_Set__r.Id,
-                            Highest_Item_Price__c = maxPriceProduct.Price__c
+                            Highest_Item_Price__c = setItem.Product_Item__r.Price__c
                     );
                     productSetsToUpdate.put(ps.Id, ps);
-//                }
+                }else{
+                    if (productSetsToUpdate.get(setItem.Product_Set__r.Id).Highest_Item_Price__c < setItem.Product_Item__r.Price__c) {
+                        setItem.Product_Set__r.Highest_Item_Price__c = setItem.Product_Item__r.Price__c;
+                    }
+                }
+            }
+        }
+        upsert productSetsToUpdate.values();
+    }
+
+    public void updateDeletedTotalPrice(){
+        Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
+        for (Set_Item__c setItem : siList){
+            if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
+                try {
+                    Product_Set__c ps = new Product_Set__c(
+                            Id = setItem.Product_Set__r.Id,
+                            Total_Price__c = (setItem.Product_Set__r.Total_Price__c - setItem.Product_Item__r.Price__c)
+                    );
+                    productSetsToUpdate.put(ps.Id, ps);
+                }catch (Exception e){System.debug(e.getStackTraceString());}
             }
             else {
-                productSetsToUpdate.get(setItem.Product_Set__r.Id).Highest_Item_Price__c = maxPriceProduct.Price__c;
+                productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c);
+            }
+        }
+        upsert productSetsToUpdate.values();
+        }
+
+    public void updateDeletedHighestItemPrice(){
+        Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
+        for (Set_Item__c setItem : newPriceList){
+            setItem.Product_Set__r.Highest_Item_Price__c = 0;
+            if(setItem.Product_Set__r.Highest_Item_Price__c < setItem.Product_Item__r.Price__c){
+                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
+                    Product_Set__c ps = new Product_Set__c(
+                            Id = setItem.Product_Set__r.Id,
+                            Highest_Item_Price__c = setItem.Product_Item__r.Price__c
+                    );
+                    productSetsToUpdate.put(ps.Id, ps);
+                }else{
+                    if (productSetsToUpdate.get(setItem.Product_Set__r.Id).Highest_Item_Price__c < setItem.Product_Item__r.Price__c) {
+                        setItem.Product_Set__r.Highest_Item_Price__c = setItem.Product_Item__r.Price__c;
+                    }
+                }
             }
         }
         upsert productSetsToUpdate.values();

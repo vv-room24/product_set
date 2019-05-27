@@ -4,10 +4,11 @@
 
 public with sharing class PizzaMaker2 {
     public static void receiptDelimiter(String [] receiptList) {
-        Map <Set<String>, Integer> receipts = new Map<Set<String>, Integer>();
+        Map <List<String>, Integer> receipts = new Map<List<String>, Integer>();
         for (Integer i = 0; i < (receiptList.size()); i++) {
-            Set <String> ingredients = new Set<String>();
+            List <String> ingredients = new List<String>();
             ingredients.addAll(receiptList[i].split(','));
+            ingredients.sort();
             if(!receipts.containsKey(ingredients)){
                 receipts.put(ingredients, 1);
             }

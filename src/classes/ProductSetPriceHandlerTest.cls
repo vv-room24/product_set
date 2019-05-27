@@ -52,6 +52,7 @@ private class ProductSetPriceHandlerTest {
         Test.stopTest();
 
         List<Product_Set__c> newProductSet = [SELECT Id, Name, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
+        System.debug(newProductSet);
         Decimal newTotalPrice = newProductSet[0].Total_Price__c;
 
         System.assertEquals(55, newTotalPrice);
@@ -66,8 +67,43 @@ private class ProductSetPriceHandlerTest {
         Test.stopTest();
 
         List<Product_Set__c> newProductSet = [SELECT Id, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
+        System.debug(newProductSet);
         Decimal newHighestItemPrice = newProductSet[0].Highest_Item_Price__c;
 
         System.assertEquals(30, newHighestItemPrice);
+    }
+
+    @isTest
+    public static void updateDeletedTotalPriceTest(){
+
+        Test.startTest();
+        dataForUpdate();
+        List <Set_Item__c> setItemsForDelete = [SELECT Id FROM Set_Item__c WHERE Name = 'TestSetItem1'];
+        delete setItemsForDelete;
+        Test.stopTest();
+
+        List<Product_Set__c> newProductSet = [SELECT Id, Name, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
+        System.debug(newProductSet);
+        Decimal newTotalPrice = newProductSet[0].Total_Price__c;
+
+        System.assertEquals(25, newTotalPrice);
+    }
+
+    @isTest
+    public static void updateDeletedHighestItemPriceTest(){
+
+        Test.startTest();
+        dataForUpdate();
+        List<Product_Set__c> newProductSet1 = [SELECT Id, Name, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
+        System.debug(newProductSet1);
+        List <Set_Item__c> setItemsForDelete = [SELECT Id FROM Set_Item__c WHERE Name = 'TestSetItem1'];
+        delete setItemsForDelete;
+        Test.stopTest();
+
+        List<Product_Set__c> newProductSet = [SELECT Id, Name, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
+        System.debug(newProductSet);
+        Decimal newHighestPrice = newProductSet[0].Highest_Item_Price__c;
+
+        System.assertEquals(25, newHighestPrice);
     }
 }
