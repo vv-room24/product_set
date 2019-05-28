@@ -1,0 +1,22 @@
+<!--
+ - Created by vvermiichuk on 28.05.2019.
+ -->
+
+<aura:component description="ProductSetItems" controller="ProductSetListController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name = "productSet" type="List" access="public"/>
+
+    <lightning:layout>
+        <lightning:layoutItem>
+            <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:" value="{!v.productSet}">
+            <option value=""> -- Please select -- </option>
+            <aura:iteration items="{!v.productSet}" var="item">
+                <option text="{!item.label}" value="{!item.value}" selected="{item.selected}"/>
+            </aura:iteration>
+            </lightning:select>
+
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
+
+

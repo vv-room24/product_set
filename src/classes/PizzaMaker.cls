@@ -42,4 +42,3 @@ public with sharing class PizzaMaker {
             System.debug(popularReceiptes.values());
         }
     }
-

@@ -1,0 +1,14 @@
+/**
+ * Created by vvermiichuk on 28.05.2019.
+ */
+
+.THIS.row {
+    padding: 5px 0;
+    margin-bottom: 15px;
+}
+
+.THIS.row .header {
+    border-bottom: 20px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}

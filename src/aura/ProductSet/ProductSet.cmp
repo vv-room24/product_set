@@ -1,0 +1,15 @@
+<!--
+ - Created by vvermiichuk on 28.05.2019.
+ -->
+
+<aura:component description="ProductSets" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <lightning:layout>
+        <lightning:layoutItem padding="horizontal-small">
+            <lightning:badge label="Product Sets"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem >
+            <c:ProductSetItems/>
+        </lightning:layoutItem>
+    </lightning:layout>
+
+</aura:component>
