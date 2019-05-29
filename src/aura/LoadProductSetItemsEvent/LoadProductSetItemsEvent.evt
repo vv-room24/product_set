@@ -1,0 +1,7 @@
+<!--
+ - Created by vvermiichuk on 29.05.2019.
+ -->
+
+<aura:event type="COMPONENT" description="LoadProductSetItemsEvent">
+    <aura:attribute name ="productSetId" type="Id"/>
+</aura:event>

@@ -7,16 +7,22 @@
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 
     <aura:attribute name = "productSets" type="List" access="public"/>
+    <aura:attribute name = "selectedProductSet" type="Id" access="public" default="a0J2p00000rK22jEAC"/>
+
+    <aura:registerEvent name = "changeProductSet" type="c:LoadProductSetItemsEvent"/>
 
     <lightning:layout>
         <lightning:layoutItem>
+            <lightning:button variant="brand" label="Select" title="Select" onclick="{!c.handleSelectProductSet}" />
+        </lightning:layoutItem>
+        <lightning:layoutItem>
             <div class="slds-card slds-p-top--medium">
-            <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:" value="{!v.productSets}">
-            <option value=""> -- Please select -- </option>
-            <aura:iteration items="{!v.productSets}" var="productSet">
-                <option text="{!productSet.label}" value="{!productSet.value}"/>
-            </aura:iteration>
-            </lightning:select>
+                <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:" value="{!v.productSets}" onchange="{!c.handleSelectProductSet}">
+                    <option value=""> -- Please select -- </option>
+                    <aura:iteration items="{!v.productSets}" var="productSet">
+                        <option text="{!productSet.label}" value="{!productSet.value}"/>
+                    </aura:iteration>
+                </lightning:select>
             </div>
 
         </lightning:layoutItem>
@@ -25,4 +31,3 @@
 </aura:component>
 
 <!--selected="{productSet.selected}"-->
-

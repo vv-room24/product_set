@@ -5,5 +5,9 @@
 ({
     doInit : function (component, event, helper) {
         helper.getProductSets(component);
+    },
+
+    handleSelectProductSet : function (component, event, helper) {
+        helper.fireSelectProductSetEvent(component, event, helper)
     }
 });

@@ -6,7 +6,7 @@
     getProductSetItems : function (component) {
         var action = component.get('c.getProductSetItems');
         action.setParams({
-             productSetId: component.get("v.productSetId")
+            productSetId: component.get("v.productSetId")
         });
 
         action.setCallback(this, $A.getCallback(function (response) {

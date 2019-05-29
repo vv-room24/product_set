@@ -6,29 +6,30 @@
 
     <aura:attribute name ="productSetId" type="Id" access="public" default="a0J2p00000rK22jEAC"/>
     <aura:attribute name ="productSetItems" type="List" access="public"/>
+    <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 
     <lightning:layout >
-    <lightning:layoutItem >
-        <article class="slds-card">
-            <div class="slds-card__header slds-grid">
-                <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                    <div class="slds-media__body">
-                        <h2 class="slds-card__header-title">
-                                <span>Product Set Items will be here</span>
-                        </h2>
-                    </div>
-                </header>
-            </div>
-        </article>
-    </lightning:layoutItem>
         <lightning:layoutItem >
-            <div class="slds-card__header slds-grid">
-            <aura:iteration items="{!v.productSetItems}" var="productSetItem">
-                <p>{!productSetItem}</p>
-            </aura:iteration>
-            </div>
+            <article class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Product Set Items will be here</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+            </article>
+        </lightning:layoutItem>
+        <lightning:layoutItem >
+                <aura:iteration items="{!v.productSetItems}" var="productSetItem">
+                    <ul>
+                        <li>{!productSetItem}</li>
+                    </ul>
+                </aura:iteration>
         </lightning:layoutItem>
     </lightning:layout>
 

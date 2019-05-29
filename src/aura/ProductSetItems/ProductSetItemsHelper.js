@@ -16,5 +16,14 @@
             }
         }));
         $A.enqueueAction(action);
+    },
+
+    fireSelectProductSetEvent : function (component, event, helper) {
+        var productSet = component.get("v.selectedProductSet");
+        var selectedPSEvent = component.getEvent("changeProductSet");
+        selectedPSEvent.setParams({
+            "productSetId" : productSet
+        });
+        selectedPSEvent.fire();
     }
 });

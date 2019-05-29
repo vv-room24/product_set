@@ -3,6 +3,11 @@
  -->
 
 <aura:component description="ProductSets" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+
+    <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
+
+    <aura:handler name="changeProductSet" event="c:LoadProductSetItemsEvent" action="{!c.handleSelectProductSet}"/>
+
     <lightning:layout>
 
         <lightning:layoutItem padding="horizontal-small">
@@ -13,6 +18,9 @@
         </lightning:layoutItem>
         <lightning:layoutItem >
             <c:ProductSetItemList/>
+        </lightning:layoutItem>
+        <lightning:layoutItem >
+            {!v.selectedProductSet}
         </lightning:layoutItem>
     </lightning:layout>
 
