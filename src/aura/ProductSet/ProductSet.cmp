@@ -11,6 +11,9 @@
         <lightning:layoutItem >
             <c:ProductSetItems/>
         </lightning:layoutItem>
+        <lightning:layoutItem >
+            <c:ProductSetItemList/>
+        </lightning:layoutItem>
     </lightning:layout>
 
 </aura:component>
