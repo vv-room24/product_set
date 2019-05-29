@@ -4,6 +4,6 @@
 
 ({
     doInit : function (component, event, helper) {
-        helper.getProductSet(component);
+        helper.getProductSets(component);
     }
 });

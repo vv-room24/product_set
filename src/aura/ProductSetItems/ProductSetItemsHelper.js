@@ -3,7 +3,7 @@
  */
 
 ({
-    getProductSet : function (component) {
+    getProductSets : function (component) {
         var action = component.get('c.getProductSets');
 
         action.setCallback(this, $A.getCallback(function (response) {
