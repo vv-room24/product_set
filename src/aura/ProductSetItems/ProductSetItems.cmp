@@ -3,20 +3,26 @@
  -->
 
 <aura:component description="ProductSetItems" controller="ProductSetListController">
+
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-    <aura:attribute name = "productSet" type="List" access="public"/>
+
+    <aura:attribute name = "productSets" type="List" access="public"/>
 
     <lightning:layout>
         <lightning:layoutItem>
-            <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:" value="{!v.productSet}">
+            <div class="slds-card slds-p-top--medium">
+            <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:" value="{!v.productSets}">
             <option value=""> -- Please select -- </option>
-            <aura:iteration items="{!v.productSet}" var="item">
-                <option text="{!item.label}" value="{!item.value}" selected="{item.selected}"/>
+            <aura:iteration items="{!v.productSets}" var="productSet">
+                <option text="{!productSet.label}" value="{!productSet.value}"/>
             </aura:iteration>
             </lightning:select>
+            </div>
 
         </lightning:layoutItem>
     </lightning:layout>
+
 </aura:component>
 
+<!--selected="{productSet.selected}"-->
 

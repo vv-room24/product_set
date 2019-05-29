@@ -9,7 +9,7 @@
         action.setCallback(this, $A.getCallback(function (response) {
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
-                component.set("v.productSet", response.getReturnValue())
+                component.set("v.productSets", response.getReturnValue());
             }
             else {
                 console.log("Failed with state: " + state);

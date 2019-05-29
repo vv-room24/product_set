@@ -4,6 +4,7 @@
 
 <aura:component description="ProductSets" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
     <lightning:layout>
+
         <lightning:layoutItem padding="horizontal-small">
             <lightning:badge label="Product Sets"/>
         </lightning:layoutItem>
