@@ -6,6 +6,7 @@
 
     <aura:attribute name ="productSetId" type="String" access="public"/>
     <aura:attribute name ="productSetItems" type="List" access="public"/>
+    <aura:attribute name ="productSetName" type="String" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
@@ -17,7 +18,7 @@
                     <header class="slds-media slds-media_center slds-has-flexi-truncate">
                         <div class="slds-media__body">
                             <h2 class="slds-card__header-title">
-                                <span>{!v.productSetId}</span>
+                                <span>{!v.productSetName}</span>
                             </h2>
                         </div>
                     </header>
