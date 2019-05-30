@@ -6,6 +6,7 @@
 
     <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
     <aura:attribute name ="productSetName" type="String" access="public"/>
+    <aura:attribute name ="productSetTotalPrice" type="Decimal" access="public"/>
 
     <aura:handler name="changeProductSet" event="c:LoadProductSetItemsEvent" action="{!c.handleSelectProductSet}"/>
 
@@ -19,7 +20,7 @@
             <c:CategoryList/>
         </lightning:layoutItem>
         <lightning:layoutItem >
-            <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}"/>
+            <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}"/>
         </lightning:layoutItem>
     </lightning:layout>
 

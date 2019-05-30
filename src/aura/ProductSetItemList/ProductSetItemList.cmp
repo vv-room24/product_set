@@ -7,6 +7,7 @@
     <aura:attribute name ="productSetId" type="String" access="public"/>
     <aura:attribute name ="productSetItems" type="List" access="public"/>
     <aura:attribute name ="productSetName" type="String" access="public"/>
+    <aura:attribute name ="productSetTotalPrice" type="Decimal" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
@@ -19,6 +20,9 @@
                         <div class="slds-media__body">
                             <h2 class="slds-card__header-title">
                                 <span>{!v.productSetName}</span>
+                                <div class="slds-media__body">
+                                <span>Total price of product set: {!v.productSetTotalPrice}</span>
+                                </div>
                             </h2>
                         </div>
                     </header>
@@ -26,6 +30,9 @@
             </article>
         </lightning:layoutItem>
         <lightning:layoutItem >
+            <div class="slds-text-color_error">
+                Items:
+            </div>
                 <aura:iteration items="{!v.productSetItems}" var="productSetItem">
                     <ul>
                         <li>{!productSetItem}</li>

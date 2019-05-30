@@ -24,5 +24,23 @@
             }
         }));
         $A.enqueueAction(action);
+    },
+
+    getProductSetTotalPrice : function (component, event, helper) {
+        var action = component.get("c.getProductSetTotalPrice");
+        action.setParams({
+            productSetId: component.get("v.selectedProductSet")
+        });
+
+        action.setCallback(this, $A.getCallback(function (response) {
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                component.set("v.productSetTotalPrice", response.getReturnValue());
+            }
+            else {
+                console.log("Failed with state: " + state);
+            }
+        }));
+        $A.enqueueAction(action);
     }
 });

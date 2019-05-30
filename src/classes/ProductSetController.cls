@@ -15,4 +15,13 @@ public with sharing class ProductSetController {
         return productSetName;
     }
 
+    @AuraEnabled
+    public static Decimal getProductSetTotalPrice(Id productSetId){
+        Decimal totalPrice;
+        for (Product_Set__c namePrice : [SELECT Total_Price__c FROM Product_Set__c WHERE Id = : productSetId]){
+            totalPrice = namePrice.Total_Price__c;
+        }
+        return totalPrice;
+    }
+
 }
