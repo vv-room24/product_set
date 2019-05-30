@@ -5,6 +5,6 @@
 ({
     handleSelectProductSetEvent : function (component, event, helper) {
         var selectedProductSet = event.getParam("productSetId");
-        component.set("v.selectedProductSet", selectedProductSet)
+        component.set("v.selectedProductSet", selectedProductSet);
     }
 });

@@ -15,12 +15,10 @@
         </lightning:layoutItem>
         <lightning:layoutItem >
             <c:ProductSetItems/>
+            <c:CategoryList/>
         </lightning:layoutItem>
         <lightning:layoutItem >
-            <c:ProductSetItemList/>
-        </lightning:layoutItem>
-        <lightning:layoutItem >
-            {!v.selectedProductSet}
+            <c:ProductSetItemList productSetId="{!v.selectedProductSet}"/>
         </lightning:layoutItem>
     </lightning:layout>
 

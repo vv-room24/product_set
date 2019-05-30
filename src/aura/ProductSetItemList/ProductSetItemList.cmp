@@ -4,11 +4,11 @@
 
 <aura:component description="ProductSetItemList" controller="ProductSetItemListController">
 
-    <aura:attribute name ="productSetId" type="Id" access="public" default="a0J2p00000rK22jEAC"/>
+    <aura:attribute name ="productSetId" type="String" access="public"/>
     <aura:attribute name ="productSetItems" type="List" access="public"/>
-    <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
 
     <lightning:layout >
         <lightning:layoutItem >
@@ -17,7 +17,7 @@
                     <header class="slds-media slds-media_center slds-has-flexi-truncate">
                         <div class="slds-media__body">
                             <h2 class="slds-card__header-title">
-                                <span>Product Set Items will be here</span>
+                                <span>{!v.productSetId}</span>
                             </h2>
                         </div>
                     </header>

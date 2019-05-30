@@ -1,18 +1,15 @@
 /**
- * Created by vvermiichuk on 29.05.2019.
+ * Created by vvermiichuk on 30.05.2019.
  */
 
 ({
-    getProductSetItems : function (component) {
-        var action = component.get("c.getProductSetItems");
-        action.setParams({
-            productSetId: component.get("v.productSetId")
-        });
+    getCategories : function (component, event, helper) {
+        var action = component.get('c.getCategories');
 
         action.setCallback(this, $A.getCallback(function (response) {
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
-                component.set("v.productSetItems", response.getReturnValue());
+                component.set("v.categoryList", response.getReturnValue());
             }
             else {
                 console.log("Failed with state: " + state);

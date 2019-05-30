@@ -1,0 +1,62 @@
+<!--
+ - Created by vvermiichuk on 30.05.2019.
+ -->
+
+<aura:component description="CategoryList" controller="CategoryListController">
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <aura:attribute name="categoryList" type="List" access="public"/>
+
+    <lightning:layout >
+    <lightning:layoutItem >
+        Product categories:
+    </lightning:layoutItem>
+        <lightning:layoutItem >
+            <aura:iteration items="{!v.categoryList}" var="category">
+                <lightning:accordion allowMultipleSectionsOpen="true" onsectiontoggle="">
+                <lightning:accordionSection label="{!category}">
+                </lightning:accordionSection>
+                </lightning:accordion>
+            </aura:iteration>
+        </lightning:layoutItem>
+
+    </lightning:layout>
+
+</aura:component>
+
+<!--<lightning:accordion-->
+<!--        allowMultipleSectionsOpen="true"-->
+<!--        onsectiontoggle="{! c.handleSectionToggle }"-->
+<!--        activeSectionName="{! v.activeSections }"-->
+<!--&gt;-->
+<!--    <lightning:accordionSection name="A" label="Accordion Title A">-->
+<!--        <aura:set attribute="actions">-->
+<!--            <lightning:buttonMenu aura:id="menu" alternativeText="Show menu" menuAlignment="right" iconSize="x-small">-->
+<!--                <lightning:menuItem value="New" label="Menu Item One" />-->
+<!--                <lightning:menuItem value="Edit" label="Menu Item Two" />-->
+<!--            </lightning:buttonMenu>-->
+<!--        </aura:set>-->
+<!--        <aura:set attribute="body">-->
+<!--            <p>This is the content area for section A.</p>-->
+<!--            <p>.</p>-->
+<!--            <p>.</p>-->
+<!--            <p>.</p>-->
+<!--            <p>The section height expands to fit your content.</p>-->
+<!--        </aura:set>-->
+<!--    </lightning:accordionSection>-->
+<!--    <lightning:accordionSection name="B" label="Accordion Title B">-->
+<!--        <p>This is the content area for section B.</p>-->
+<!--        <p>.</p>-->
+<!--        <p>.</p>-->
+<!--        <p>.</p>-->
+<!--        <p>The section height expands to fit your content.</p>-->
+<!--    </lightning:accordionSection>-->
+<!--    <lightning:accordionSection name="C" label="Accordion Title C">-->
+<!--        <p>This is the content area for section C.</p>-->
+<!--        <p>.</p>-->
+<!--        <p>.</p>-->
+<!--        <p>.</p>-->
+<!--        <p>The section height expands to fit your content.</p>-->
+<!--    </lightning:accordionSection>-->
+<!--</lightning:accordion>-->

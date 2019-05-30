@@ -19,10 +19,10 @@
     },
 
     fireSelectProductSetEvent : function (component, event, helper) {
-        var productSet = component.get("v.selectedProductSet");
         var selectedPSEvent = component.getEvent("changeProductSet");
+        var selected = component.find("selectProductSet").get("v.value");
         selectedPSEvent.setParams({
-            "productSetId" : productSet
+            "productSetId" : selected
         });
         selectedPSEvent.fire();
     }
