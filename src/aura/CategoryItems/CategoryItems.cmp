@@ -1,0 +1,22 @@
+<!--
+ - Created by vvermiichuk on 30.05.2019.
+ -->
+
+<aura:component description="CategoryItems" controller="CategoryItemsController">
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <aura:attribute name="toggledCategoryItems" type="String" access="public" default="nothing"/>
+    <aura:attribute name="items" type="List" access="public"/>
+
+    <lightning:layout >
+        <lightning:layoutItem >
+            <aura:iteration aura:id = "iterator" items="{!v.items}" var="itemName">
+                <ol>
+                    <li>{!itemName}</li>
+                </ol>
+            </aura:iteration>
+        </lightning:layoutItem>
+    </lightning:layout>
+
+</aura:component>

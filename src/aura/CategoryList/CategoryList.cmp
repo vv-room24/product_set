@@ -7,20 +7,28 @@
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 
     <aura:attribute name="categoryList" type="List" access="public"/>
+    <aura:attribute name="openSection" type="String" access="public"/>
+    <aura:attribute name="toggledCategoryItems" type="List" access="public"/>
 
     <lightning:layout >
     <lightning:layoutItem >
         Product categories:
     </lightning:layoutItem>
         <lightning:layoutItem >
-            <aura:iteration items="{!v.categoryList}" var="category">
-                <lightning:accordion allowMultipleSectionsOpen="true" onsectiontoggle="">
-                <lightning:accordionSection label="{!category}">
-                </lightning:accordionSection>
+
+                <lightning:accordion allowMultipleSectionsOpen="true" aura:id = "toggledCategory" activeSectionName="{!v.openSection}" >
+                    <aura:iteration aura:id = "iterator" items="{!v.categoryList}" var="category">
+                        <lightning:accordionSection  label="{!category}" >
+                            <c.CategoryItems toggledCategoryItems="{!category}"/>
+                        </lightning:accordionSection>
+                    </aura:iteration>
                 </lightning:accordion>
-            </aura:iteration>
+
         </lightning:layoutItem>
 
+        <lightning:layoutItem >
+
+        </lightning:layoutItem>
     </lightning:layout>
 
 </aura:component>

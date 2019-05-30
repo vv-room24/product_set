@@ -13,8 +13,8 @@
 
     <lightning:layout>
         <lightning:layoutItem>
-            <div class="slds-card slds-p-top--medium">
-                <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:"  onchange="{!c.handleSelectProductSet}">
+            <div class="slds-form-element">
+                <lightning:select class="slds-select" aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:"  onchange="{!c.handleSelectProductSet}">
                     <option> -- Please select -- </option>
                     <aura:iteration items="{!v.productSets}" var="productSet">
                         <option text="{!productSet.label}" value="{!productSet.value}"/>

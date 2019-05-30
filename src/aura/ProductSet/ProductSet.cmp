@@ -16,8 +16,12 @@
             <lightning:badge label="Product Sets"/>
         </lightning:layoutItem>
         <lightning:layoutItem >
-            <c:ProductSetItems/>
-            <c:CategoryList/>
+            <div>
+                <c:ProductSetItems/>
+            </div>
+            <div>
+                <c:CategoryList/>
+            </div>
         </lightning:layoutItem>
         <lightning:layoutItem >
             <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}"/>
