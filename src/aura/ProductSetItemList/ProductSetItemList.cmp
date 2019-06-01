@@ -28,5 +28,7 @@
     <div>
         Total price of product set: {!v.productSetTotalPrice}
     </div>
-
+    <div>
+        <lightning:button  class="slds-button slds-button_inverse" label="More..." name="Set Detail"/>
+    </div>
 </aura:component>
