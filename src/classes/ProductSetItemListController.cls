@@ -15,4 +15,12 @@ public with sharing class ProductSetItemListController {
         System.debug(productItemsNames.size());
         return productItemsNames;
     }
+
+    @AuraEnabled
+    public static Product_Set__c getDetails(Id id){
+        List <Product_Set__c> detail = [SELECT Name, Total_Price__c, Highest_Item_Price__c, Discount__c
+                                        FROM Product_Set__c
+                                        WHERE Id = :id];
+        return detail[0];
+    }
 }

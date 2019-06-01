@@ -8,6 +8,8 @@
     <aura:attribute name ="productSetItems" type="List" access="public"/>
     <aura:attribute name ="productSetName" type="String" access="public"/>
     <aura:attribute name ="productSetTotalPrice" type="Decimal" access="public"/>
+    <aura:attribute name ="productSetDetailed" type="Product_Set__c" access="public"/>
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
@@ -25,10 +27,38 @@
             </div>
         </aura:iteration>
     </div>
-    <div>
+    <div >
         Total price of product set: {!v.productSetTotalPrice}
     </div>
-    <div>
-        <lightning:button  class="slds-button slds-button_inverse" label="More..." name="Set Detail"/>
+    <div class="slds-m-around_xx-small">
+        <lightning:button  class="slds-button slds-button_inverse" label="More..." name="Set Detail" onclick="{!c.getSetDetalis}"/>
+        <aura:if isTrue="{!v.isOpen}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Details of Product Set: {!v.productSetDetailed.Name} </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <ul class="slds-has-dividers_around-space">
+                            <li class="slds-item"> Total Price:{!v.productSetDetailed.Total_Price__c}</li>
+                            <li class="slds-item"> Highest Item Price:{!v.productSetDetailed.Highest_Item_Price__c}</li>
+                            <li class="slds-item"> Discount:{!v.productSetDetailed.Discount__c}</li>
+                        </ul>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral"
+                                          label="Close"
+                                          title="Close"
+                                          onclick="{! c.closeModel }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </aura:if>
     </div>
 </aura:component>
