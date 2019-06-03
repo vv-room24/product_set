@@ -46,5 +46,15 @@
     closeModel: function(component, event, helper) {
         // for Hide/Close Model,set the "isOpen" attribute to "Fasle"
         component.set("v.isOpen", false);
+    },
+    
+    updateCategoryItems : function (component, event, helper) {
+        var items = component.get("v.productSetItems");
+        var selected = event.getSource().get("v.value");
+        console.log(items);
+        console.log(selected);
+        var index = items.indexOf(selected);
+        if (index !== -1) items.splice(index, 1);
+        component.set("v.productSetItems", items)
     }
 });

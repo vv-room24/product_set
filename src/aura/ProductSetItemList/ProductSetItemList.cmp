@@ -11,6 +11,8 @@
     <aura:attribute name ="productSetDetailed" type="Product_Set__c" access="public"/>
     <aura:attribute name="isOpen" type="boolean" default="false"/>
 
+    <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
+
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
 
@@ -24,7 +26,7 @@
             <ul class="slds-has-dividers_around-space">
                 <li class="slds-item">{!productSetItem}
                     <a class="my-custom-background">
-                    <lightning:buttonIcon iconName="utility:close"  variant="border-inverse" alternativeText="Close (disabled)"/>
+                    <lightning:buttonIcon iconName="utility:close"  variant="border-inverse" value="{!productSetItem}" alternativeText="Close (disabled)" onclick="{!c.removeItem}"/>
                     </a>
                 </li>
             </ul>

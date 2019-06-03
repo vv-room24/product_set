@@ -16,4 +16,8 @@
         helper.closeModel(component, event, helper);
     },
 
+    removeItem : function (component, event, helper) {
+        helper.updateCategoryItems(component, event, helper);
+    }
+
 });
