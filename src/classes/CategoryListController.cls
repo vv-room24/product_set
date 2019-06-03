@@ -23,16 +23,5 @@ public with sharing class CategoryListController {
         }
         return productItems;
     }
-
-//    @AuraEnabled
-//    public static List <String> getProducts(){
-////        List <Product_Item__c> products = new List<Product_Item__c>();
-////        for (Product_Item__c product : [SELECT Name, Category__c FROM Product_Item__c ]){
-////            if(!products.contains(category.Category__c)) {
-////                categories.add(category.Category__c);
-////            }
-////        }
-////        return categories;
-//    }
 }
 

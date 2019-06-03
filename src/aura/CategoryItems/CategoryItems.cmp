@@ -9,11 +9,17 @@
     <aura:attribute name="toggledCategoryItems" type="String" access="public" default="nothing"/>
     <aura:attribute name="items" type="List" access="public"/>
 
+    <aura:registerEvent name="addCategoryItem" type="c:AddCategoryItemEvent"/>
+
     <lightning:layout >
         <lightning:layoutItem >
             <aura:iteration aura:id = "iterator" items="{!v.items}" var="itemName">
                 <ol>
-                    <li>{!itemName}</li>
+                    <div>
+                        <li>{!itemName}
+                        <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!itemName}" onclick="{!c.removeItem}"/>
+                        </li>
+                    </div>
                 </ol>
             </aura:iteration>
         </lightning:layoutItem>

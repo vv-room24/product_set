@@ -20,5 +20,15 @@
             console.log(response.getReturnValue());
         }));
         $A.enqueueAction(action);
+    },
+
+    updateCategoryItems : function (component, event, helper) {
+        var items = component.get("v.items");
+        var selected = event.getSource().get("v.value");
+        var index = items.indexOf(selected);
+        if (index !== -1) items.splice(index, 1);
+        component.set("v.items", items)
     }
+
+
 });

@@ -22,7 +22,11 @@
         <aura:iteration items="{!v.productSetItems}" var="productSetItem">
             <div class="slds-p-around_medium">
             <ul class="slds-has-dividers_around-space">
-                <li class="slds-item">{!productSetItem}</li>
+                <li class="slds-item">{!productSetItem}
+                    <a class="my-custom-background">
+                    <lightning:buttonIcon iconName="utility:close"  variant="border-inverse" alternativeText="Close (disabled)"/>
+                    </a>
+                </li>
             </ul>
             </div>
         </aura:iteration>

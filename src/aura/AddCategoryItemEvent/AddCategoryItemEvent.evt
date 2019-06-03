@@ -1,0 +1,7 @@
+<!--
+ - Created by vvermiichuk on 03.06.2019.
+ -->
+
+<aura:event type="COMPONENT" description="AddCategoryItemEvent">
+    <aura:attribute name="itemName" type="String"/>
+</aura:event>

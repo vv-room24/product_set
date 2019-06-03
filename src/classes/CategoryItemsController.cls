@@ -12,5 +12,4 @@ public with sharing class CategoryItemsController {
         }
         return productItems;
     }
-
 }
