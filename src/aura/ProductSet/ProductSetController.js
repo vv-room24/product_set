@@ -3,6 +3,10 @@
  */
 
 ({
+    doInit : function (component, event, helper) {
+        helper.getProductSetItems(component, event, helper)
+    },
+
     handleSelectProductSet : function (component, event, helper) {
         helper.handleSelectProductSetEvent(component, event, helper);
         helper.getProductSetName(component, event, helper);

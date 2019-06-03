@@ -45,14 +45,19 @@
     },
 
     handleAddCategoryItemEvent : function (component, event, helper) {
-        var action = component.get("c.getSetItems");
+        var selectedProductSetItems = component.get("v.productSetItems")
         var selectedCategoryItem = event.getParam("itemName");
+        console.log(selectedProductSetItems);
         console.log(selectedCategoryItem);
-        console.log(component.get("v.selectedProductSet"));
+        selectedProductSetItems.push(selectedCategoryItem);
+        component.set("v.productSetItems", selectedProductSetItems);
+    },
+    
+    getProductSetItems : function (component, event, helper) {
+        var action = component.get("c.getSetItems");
 
         action.setParams({
             productSetId: component.get("v.selectedProductSet"),
-            selectedItem: selectedCategoryItem
         });
 
         action.setCallback(this, $A.getCallback(function (response) {
