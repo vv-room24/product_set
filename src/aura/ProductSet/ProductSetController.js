@@ -7,5 +7,9 @@
         helper.handleSelectProductSetEvent(component, event, helper);
         helper.getProductSetName(component, event, helper);
         helper.getProductSetTotalPrice(component, event, helper);
+    },
+
+    handleAddCategoryItem : function (component, event, helper) {
+        helper.handleAddCategoryItemEvent(component, event, helper)
     }
 });

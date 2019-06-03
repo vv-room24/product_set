@@ -28,7 +28,16 @@
         var index = items.indexOf(selected);
         if (index !== -1) items.splice(index, 1);
         component.set("v.items", items)
-    }
+    },
 
+    fireAddCategoryItemEvent : function (component, event, helper) {
+        var selectedCIEvent = component.getEvent("addCategoryItem");
+        var selected = event.getSource().get("v.value");
+        console.log(selected);
+        selectedCIEvent.setParams({
+            "itemName" : selected
+        });
+        selectedCIEvent.fire();
+    }
 
 });

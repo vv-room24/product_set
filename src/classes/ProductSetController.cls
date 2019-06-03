@@ -24,4 +24,14 @@ public with sharing class ProductSetController {
         return totalPrice;
     }
 
+    @AuraEnabled
+    public static List <String> getSetItems(Id productSetId, String selectedItem) {
+        List<String> productItems = new List<String>();
+        for (Set_Item__c productItem : [SELECT Product_Item__r.Name FROM Set_Item__c WHERE Product_Set__r.Id = :productSetId]) {
+            productItems.add(productItem.Product_Item__r.Name);
+        }
+        productItems.add(selectedItem);
+        return productItems;
+    }
+
 }
