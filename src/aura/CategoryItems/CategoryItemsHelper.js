@@ -33,7 +33,6 @@
     fireAddCategoryItemEvent : function (component, event, helper) {
         var selectedCIEvent = component.getEvent("addCategoryItem");
         var selected = event.getSource().get("v.value");
-        console.log(selected);
         selectedCIEvent.setParams({
             "itemName" : selected
         });

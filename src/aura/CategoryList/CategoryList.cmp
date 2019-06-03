@@ -19,7 +19,7 @@
                 <lightning:accordion allowMultipleSectionsOpen="true" aura:id = "toggledCategory" activeSectionName="{!v.openSection}" >
                     <aura:iteration aura:id = "iterator" items="{!v.categoryList}" var="category">
                         <lightning:accordionSection  label="{!category}" >
-                            <c.CategoryItems toggledCategoryItems="{!category}"/>
+                            <c.CategoryItems aura:id = "categoryItems" toggledCategoryItems="{!category}"/>
                         </lightning:accordionSection>
                     </aura:iteration>
                 </lightning:accordion>

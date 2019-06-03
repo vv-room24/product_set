@@ -17,6 +17,7 @@
     },
 
     removeItem : function (component, event, helper) {
+        helper.fireRemoveCategoryItemEvent(component, event, helper);
         helper.updateCategoryItems(component, event, helper);
     }
 

@@ -47,8 +47,6 @@
     handleAddCategoryItemEvent : function (component, event, helper) {
         var selectedProductSetItems = component.get("v.productSetItems")
         var selectedCategoryItem = event.getParam("itemName");
-        console.log(selectedProductSetItems);
-        console.log(selectedCategoryItem);
         selectedProductSetItems.push(selectedCategoryItem);
         component.set("v.productSetItems", selectedProductSetItems);
     },
@@ -70,6 +68,22 @@
             }
         }));
         $A.enqueueAction(action);
+    },
+
+    handleRemoveCategoryItemEvent : function (component, event, helper) {
+        console.log(event.getParam("itemName"));
+        var selectedCategoryItem = event.getParam("itemName");
+        console.log(selectedCategoryItem);
+        var child = component.find("categoryList").find("categoryItems");
+        for (var i = 0; i < child.length; i++) {
+            console.log(child[i].getProductSetItems("{!v.items}"));
+        }
+
+
+        // var childCmp = component.find("cComp"); // return array
+        // for(var i = 0;i < childComp.length;i++){
+        //     childCmp[i].sampleMethod();
+        // }
     }
 
 });
