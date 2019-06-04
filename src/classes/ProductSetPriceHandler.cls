@@ -9,7 +9,7 @@ public with sharing class ProductSetPriceHandler {
             Product_Item__r.Price__c,
             Product_Set__r.Id,
             Product_Set__r.Highest_Item_Price__c
-    FROM Set_Item__c];
+            FROM Set_Item__c];
 
     public ProductSetPriceHandler(List <Set_Item__c> setItems){
         List <Set_Item__c> retrieveSIList = [SELECT
@@ -22,21 +22,34 @@ public with sharing class ProductSetPriceHandler {
         siList = retrieveSIList;
     }
 
+    public void updateTotalPrice(Boolean isDeletedSetItem){
 
-    public void updateTotalPrice(){
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
         for (Set_Item__c setItem : siList){
-            if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
-                try {
+            if(isDeletedSetItem){
+                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
                     Product_Set__c ps = new Product_Set__c(
                             Id = setItem.Product_Set__r.Id,
-                            Total_Price__c = (setItem.Product_Set__r.Total_Price__c + setItem.Product_Item__r.Price__c)
+                            Total_Price__c = (setItem.Product_Set__r.Total_Price__c - setItem.Product_Item__r.Price__c)
                     );
                     productSetsToUpdate.put(ps.Id, ps);
-                }catch (Exception e){System.debug(e.getStackTraceString());}
                 }
-            else {
-                productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c += setItem.Product_Item__r.Price__c;
+                    else {
+                        productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c);
+                    }
+            }else {
+                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
+                    try {
+                        Product_Set__c ps = new Product_Set__c(
+                                Id = setItem.Product_Set__r.Id,
+                                Total_Price__c = (setItem.Product_Set__r.Total_Price__c + setItem.Product_Item__r.Price__c)
+                        );
+                        productSetsToUpdate.put(ps.Id, ps);
+                    }catch (Exception e){System.debug(e.getStackTraceString());}
+                }
+                else {
+                    productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c += setItem.Product_Item__r.Price__c;
+                }
             }
         }
         upsert productSetsToUpdate.values();
@@ -61,25 +74,6 @@ public with sharing class ProductSetPriceHandler {
         }
         upsert productSetsToUpdate.values();
     }
-
-    public void updateDeletedTotalPrice(){
-        Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
-        for (Set_Item__c setItem : siList){
-            if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
-                try {
-                    Product_Set__c ps = new Product_Set__c(
-                            Id = setItem.Product_Set__r.Id,
-                            Total_Price__c = (setItem.Product_Set__r.Total_Price__c - setItem.Product_Item__r.Price__c)
-                    );
-                    productSetsToUpdate.put(ps.Id, ps);
-                }catch (Exception e){System.debug(e.getStackTraceString());}
-            }
-            else {
-                productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c);
-            }
-        }
-        upsert productSetsToUpdate.values();
-        }
 
     public void updateDeletedHighestItemPrice(){
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();

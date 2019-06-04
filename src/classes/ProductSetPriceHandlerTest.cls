@@ -38,9 +38,6 @@ private class ProductSetPriceHandlerTest {
         testItems.add(sItem1);
         testItems.add(sItem2);
         return testItems;
-//
-//        insert sItem1;
-//        insert sItem2;
     }
 
     @isTest
@@ -71,23 +68,6 @@ private class ProductSetPriceHandlerTest {
         Decimal newHighestItemPrice = newProductSet[0].Highest_Item_Price__c;
 
         System.assertEquals(30, newHighestItemPrice);
-    }
-
-    @isTest
-    public static void updateDeletedTotalPriceTest(){
-
-        Test.startTest();
-        List <Set_Item__c> testSetItems = dataForUpdate();
-        insert testSetItems;
-        List <Set_Item__c> setItemsForDelete = [SELECT Id FROM Set_Item__c WHERE Name = 'TestSetItem1'];
-        delete setItemsForDelete;
-        Test.stopTest();
-
-        List<Product_Set__c> newProductSet = [SELECT Id, Name, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
-        System.debug(newProductSet);
-        Decimal newTotalPrice = newProductSet[0].Total_Price__c;
-
-        System.assertEquals(25, newTotalPrice);
     }
 
     @isTest
