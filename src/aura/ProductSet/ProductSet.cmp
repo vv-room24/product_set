@@ -33,14 +33,11 @@
                 <c:ProductSetItems/>
             </div>
             <div class="slds-col">
-                <c:CategoryList aura:id = "categoryList" selectedItem="{!v.selectedItem}"/>
+                <c:Categories selectedItem="{!v.selectedItem}"/>
             </div>
             <div class="slds-col">
                 <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}" productSetItems="{!v.productSetItems}"/>
             </div>
-        </div>
-        <div>
-            <c.Categories/>
         </div>
 
     </div>

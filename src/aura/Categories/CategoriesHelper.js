@@ -21,8 +21,6 @@
                 };
                 component.set("v.categories", categories);
                 component.set("v.categoryItems", productNames);
-                console.log(categories);
-                console.log(productNames);
             }
             else {
                 console.log("Failed with state: " + state);
@@ -35,11 +33,42 @@
         var selectedItems = [];
         var products = component.get("v.products");
         var selectedCategory = component.find("accordion").get("v.activeSectionName");
-        console.log(selectedCategory + " selected");
+        var categoryItems = component.get("v.categoryItems");
         for(var i = 0; i < products.length; i++){
             if (products[i].Category__c == selectedCategory)
                 selectedItems.push(products[i].Name);
         };
-        component.set("v.categoryItems", selectedItems);
+        console.log(categoryItems);
+        console.log(selectedItems);
+        component.set("v.categoryItems", selectedItems.sort());
+    },
+
+    updateCategoryItems : function (component, event, helper) {
+        var items = component.get("v.categoryItems");
+        var selected = event.getSource().get("v.value");
+        var index = items.indexOf(selected);
+        if (index !== -1) items.splice(index, 1);
+        component.set("v.categoryItems", items)
+    },
+
+    fireAddCategoryItemEvent : function (component, event, helper) {
+        var selectedCIEvent = component.getEvent("addCategoryItem");
+        var selected = event.getSource().get("v.value");
+        selectedCIEvent.setParams({
+            "itemName" : selected
+        });
+        selectedCIEvent.fire();
+    },
+
+    changeProductItems : function (component, event, helper) {
+        var selected = component.get("v.selectedItem");
+        var items = component.get("v.categoryItems");
+        var selectedCategory = component.find("accordion").get("v.activeSectionName");
+        var products = component.get("v.products");
+        var newProduct = new function(){this.Name = selected, this.Category__c = selectedCategory};
+        products.push(newProduct);
+        component.set("v.products", products);
+        items.push(newProduct.Name);
+        component.set("v.categoryItems", items.sort());
     }
 });

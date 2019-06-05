@@ -59,11 +59,9 @@
     fireRemoveCategoryItemEvent : function (component, event, helper) {
         var selectedCIREvent = component.getEvent("removeCategoryItem");
         var selected = event.getSource().get("v.value");
-        console.log(selected + "helperSet");
         selectedCIREvent.setParams({
             "itemName" : selected
         });
-        console.log(selectedCIREvent.getParam("itemName") + "event attr" );
         selectedCIREvent.fire();
 
     }

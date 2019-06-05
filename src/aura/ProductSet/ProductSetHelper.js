@@ -72,7 +72,6 @@
 
     handleRemoveCategoryItemEvent : function (component, event, helper) {
         var selectedCategoryItem = event.getParam("itemName");
-        console.log(selectedCategoryItem + " in handler");
         component.set("v.selectedItem", selectedCategoryItem);
     }
 

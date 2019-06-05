@@ -9,5 +9,14 @@
 
     handleAccordionSectionToggle : function (component, event, helper) {
         helper.getCategoryItems(component, event, helper);
+    },
+
+    removeItem : function (component, event, helper) {
+        helper.fireAddCategoryItemEvent(component, event, helper);
+        helper.updateCategoryItems(component, event, helper);
+    },
+
+    handleRemovedItem : function (component, event, helper) {
+        helper.changeProductItems(component, event, helper);
     }
 });
