@@ -11,13 +11,17 @@
 
     <aura:registerEvent name="addCategoryItem" type="c:AddCategoryItemEvent"/>
 
+    <aura:method name="handleNewItem" action="{!c.newItemHandler}">
+        <aura:attribute name="newItem" type="String"/>
+    </aura:method>
+
     <lightning:layout >
         <lightning:layoutItem >
             <aura:iteration aura:id = "iterator" items="{!v.items}" var="itemName">
                 <ol>
                     <div>
                         <li>{!itemName}
-                        <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!itemName}" onclick="{!c.removeItem}"/>
+                            <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!itemName}" onclick="{!c.removeItem}"/>
                         </li>
                     </div>
                 </ol>

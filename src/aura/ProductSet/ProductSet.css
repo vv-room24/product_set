@@ -2,6 +2,12 @@
  * Created by vvermiichuk on 28.05.2019.
  */
 
+.THIS.c-container {
+    border: 1px solid #d8dde6;
+    margin: 10px 0 20px 0;
+    background-color: #d0d0dd;
+}
+
 .THIS.row {
     padding: 5px 0;
     margin-bottom: 15px;

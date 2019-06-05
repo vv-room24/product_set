@@ -37,6 +37,14 @@
             "itemName" : selected
         });
         selectedCIEvent.fire();
+    },
+
+    handleNewItem : function (component, event, helper) {
+        var param = event.getParam("arguments");
+        var items = component.get("v.items");
+        console.log(param);
+        items.add(param);
+        component.set("v.items", items);
     }
 
 });

@@ -1,0 +1,32 @@
+<!--
+ - Created by vvermiichuk on 05.06.2019.
+ -->
+
+<aura:component description="Categories" controller="CategoriesController">
+
+    <aura:attribute name="products" type="List" access="public"/>
+    <aura:attribute name="categories" type="Set" access="public"/>
+    <aura:attribute name="categoryItems" type="List" access="public"/>
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <lightning:layout >
+        <lightning:layoutItem >
+            <lightning:accordion aura:id="accordion" onsectiontoggle="{!c.handleAccordionSectionToggle}">
+                <aura:iteration aura:id = "categoryIteration" items="{!v.categories}" var="category">
+                    <lightning:accordionSection name="{!category}" label="{!category}">
+                        <aura:iteration items="{!v.categoryItems}" var="categoryItem">
+                            <ol>
+                                <li>
+                                    {!categoryItem}
+                                    <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!itemName}"/>
+                                </li>
+                            </ol>
+                        </aura:iteration>
+                    </lightning:accordionSection>
+                </aura:iteration>
+            </lightning:accordion>
+        </lightning:layoutItem>
+    </lightning:layout>
+
+</aura:component>

@@ -10,5 +10,9 @@
     removeItem : function (component, event, helper) {
         helper.fireAddCategoryItemEvent(component, event, helper);
         helper.updateCategoryItems(component, event, helper);
+    },
+
+    newItemHandler : function (component, event, helper) {
+        helper.handleNewItem(component, event, helper);
     }
 });
