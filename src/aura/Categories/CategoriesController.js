@@ -5,6 +5,11 @@
 ({
     doInit : function (component, event, helper) {
         helper.getProducts(component, event, helper);
+        helper.getSetItems(component, event, helper);
+    },
+
+    handleSelectedProductSet : function (component, event, helper) {
+        helper.handleMatchedProducts(component, event, helper);
     },
 
     handleAccordionSectionToggle : function (component, event, helper) {
@@ -19,4 +24,5 @@
     handleRemovedItem : function (component, event, helper) {
         helper.changeProductItems(component, event, helper);
     }
+
 });

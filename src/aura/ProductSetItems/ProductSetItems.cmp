@@ -4,10 +4,10 @@
 
 <aura:component description="ProductSetItems" controller="ProductSetListController">
 
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-
     <aura:attribute name = "productSets" type="Object" access="public"/>
     <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 
     <aura:registerEvent name = "changeProductSet" type="c:LoadProductSetItemsEvent"/>
 

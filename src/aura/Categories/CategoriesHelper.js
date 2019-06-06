@@ -25,8 +25,56 @@
             else {
                 console.log("Failed with state: " + state);
             }
+            window.globalProducts = response.getReturnValue();
         }));
         $A.enqueueAction(action);
+    },
+
+    getSetItems : function(component, event, helper){
+        var action = component.get("c.getSetItems");
+        action.setCallback(this, $A.getCallback(function (response) {
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                component.set("v.setItems", response.getReturnValue());
+            }
+            else {
+                console.log("Failed with state: " + state);
+            }
+            window.globalSetItems = response.getReturnValue();
+        }));
+        $A.enqueueAction(action);
+        console.log("SetItems retrieved");
+    },
+
+    handleMatchedProducts : function(component, event, helper){
+        component.set("v.products", window.globalProducts);
+        component.set("v.setItems", window.globalSetItems);
+        var products = component.get("v.products");
+        var setItems = component.get("v.setItems");
+        var categoryItems = component.get("v.categoryItems");
+        var selectedProductSet = component.get("v.selectedProductSet");
+        console.log(selectedProductSet);
+        for (var i = 0; i < setItems.length; i++){
+            console.log(setItems[i].Product_Set__r.Name);
+            if (setItems[i].Product_Set__c == selectedProductSet){
+                // for (var j = 0; j < products.length; j++){
+                //     if (products[j].Name == setItems[i].Product_Item__r.Name){
+                //         console.log(products[j].Name + "matched");
+                //         products.splice(j, 1);
+                //     }
+                // }
+                for (var j = 0; j < categoryItems.length; j++){
+                    if(categoryItems[j] == setItems[i].Product_Item__r.Name){
+                        console.log(categoryItems[j] + "matched");
+                        categoryItems.splice(j, 1);
+                    }
+                }
+            }
+        }
+        console.log(categoryItems);
+        component.set("v.categoryItems", categoryItems)
+        // component.set("v.products", products);
+        console.log("products corrected");
     },
 
     getCategoryItems : function (component, event, helper) {
@@ -51,8 +99,7 @@
         for(var i = 0; i < products.length; i++){
             if(products[i].Name === selected){
                 products.splice(i, 1);
-            }else{console.log(i)}
-            ;
+            }
         };
         component.set("v.products", products);
 
@@ -93,6 +140,8 @@
             component.set("v.categoryItems", items.sort());
         }else{
             alert("Select right category");
+
         }
     }
+
 });

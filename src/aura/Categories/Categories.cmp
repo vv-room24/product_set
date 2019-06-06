@@ -4,13 +4,18 @@
 
 <aura:component description="Categories" controller="CategoriesController">
 
-    <aura:attribute name="products" type="List" access="public"/>
+    <aura:attribute name="products" type="Object" access="public"/>
     <aura:attribute name="categories" type="List" access="public"/>
     <aura:attribute name="categoryItems" type="List" access="public"/>
     <aura:attribute name = "selectedItem" type="String" access="public"/>
+    <aura:attribute name = "setItems" type="Object" access="public"/>
+    <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.handleRemovedItem}" value="{!v.selectedItem}"/>
+
+    <aura:method name="getSetItems" action="{!c.handleSelectedProductSet}" access="PUBLIC">
+    </aura:method>
 
     <aura:registerEvent name="addCategoryItem" type="c:AddCategoryItemEvent"/>
 
@@ -18,7 +23,7 @@
         <lightning:layoutItem >
             <lightning:accordion aura:id="accordion" onsectiontoggle="{!c.handleAccordionSectionToggle}">
                 <aura:iteration aura:id = "categoryIteration" items="{!v.categories}" var="category">
-                    <lightning:accordionSection name="{!category}" label="{!category}">
+                    <lightning:accordionSection name="{!category}" label="{!category}" >
                         <aura:iteration items="{!v.categoryItems}" var="categoryItem">
                             <ol>
                                 <li>

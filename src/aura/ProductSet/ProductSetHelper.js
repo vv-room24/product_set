@@ -6,6 +6,7 @@
     handleSelectProductSetEvent : function (component, event, helper) {
         var selectedProductSet = event.getParam("productSetId");
         component.set("v.selectedProductSet", selectedProductSet);
+        component.find("categories").getSetItems();
     },
 
     getProductSetName : function (component, event, helper) {
