@@ -46,9 +46,21 @@
     updateCategoryItems : function (component, event, helper) {
         var items = component.get("v.categoryItems");
         var selected = event.getSource().get("v.value");
-        var index = items.indexOf(selected);
-        if (index !== -1) items.splice(index, 1);
-        component.set("v.categoryItems", items)
+        var products = component.get("v.products");
+        console.log(selected);
+        for(var i = 0; i < products.length; i++){
+            if(products[i].Name === selected){
+                products.splice(i, 1);
+            }else{console.log(i)}
+            ;
+        };
+        component.set("v.products", products);
+
+        for(var j = 0; j < items.length; j++){
+            if (items[j] === selected)
+                items.splice(j, 1);
+        };
+        component.set("v.categoryItems", items.sort());
     },
 
     fireAddCategoryItemEvent : function (component, event, helper) {
@@ -65,10 +77,22 @@
         var items = component.get("v.categoryItems");
         var selectedCategory = component.find("accordion").get("v.activeSectionName");
         var products = component.get("v.products");
-        var newProduct = new function(){this.Name = selected, this.Category__c = selectedCategory};
-        products.push(newProduct);
-        component.set("v.products", products);
-        items.push(newProduct.Name);
-        component.set("v.categoryItems", items.sort());
+
+        var productNames = [];
+        for(var i = 0; i < products.length; i++){
+            productNames.push(products[i].Name);
+            }
+        if (!productNames.includes(selected)) {
+
+            var newProduct = new function () {
+                this.Name = selected, this.Category__c = selectedCategory
+            };
+            products.push(newProduct);
+            component.set("v.products", products);
+            items.push(newProduct.Name);
+            component.set("v.categoryItems", items.sort());
+        }else{
+            alert("Select right category");
+        }
     }
 });
