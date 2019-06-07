@@ -23,36 +23,56 @@ public with sharing class ProductSetPriceHandler {
     }
 
     public void updateTotalPrice(Boolean isDeletedSetItem){
-
+        Boolean isDeleted = isDeletedSetItem;
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
-        for (Set_Item__c setItem : siList){
-            if(isDeletedSetItem){
+            for (Set_Item__c setItem : siList){
                 if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
-                    Product_Set__c ps = new Product_Set__c(
+                    Product_Set__c productSet = new Product_Set__c(
                             Id = setItem.Product_Set__r.Id,
-                            Total_Price__c = (setItem.Product_Set__r.Total_Price__c - setItem.Product_Item__r.Price__c)
+                            Total_Price__c = ((isDeleted)?
+                                    (setItem.Product_Set__r.Total_Price__c - setItem.Product_Item__r.Price__c):
+                                    (setItem.Product_Set__r.Total_Price__c + setItem.Product_Item__r.Price__c))
                     );
-                    productSetsToUpdate.put(ps.Id, ps);
+                    productSetsToUpdate.put(productSet.Id, productSet);
                 }
                     else {
-                        productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c);
+                        productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = ((isDeleted)?
+                                (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c):
+                                (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c += setItem.Product_Item__r.Price__c));
                     }
-            }else {
-                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
-                    try {
-                        Product_Set__c ps = new Product_Set__c(
-                                Id = setItem.Product_Set__r.Id,
-                                Total_Price__c = (setItem.Product_Set__r.Total_Price__c + setItem.Product_Item__r.Price__c)
-                        );
-                        productSetsToUpdate.put(ps.Id, ps);
-                    }catch (Exception e){System.debug(e.getStackTraceString());}
-                }
-                else {
-                    productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c += setItem.Product_Item__r.Price__c;
-                }
             }
-        }
         upsert productSetsToUpdate.values();
+
+
+//        Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
+//        for (Set_Item__c setItem : siList){
+//            if(isDeletedSetItem){
+//                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
+//                    Product_Set__c ps = new Product_Set__c(
+//                            Id = setItem.Product_Set__r.Id,
+//                            Total_Price__c = (setItem.Product_Set__r.Total_Price__c - setItem.Product_Item__r.Price__c)
+//                    );
+//                    productSetsToUpdate.put(ps.Id, ps);
+//                }
+//                    else {
+//                        productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c);
+//                    }
+//            }else {
+//                if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
+//                    try {
+//                        Product_Set__c ps = new Product_Set__c(
+//                                Id = setItem.Product_Set__r.Id,
+//                                Total_Price__c = (setItem.Product_Set__r.Total_Price__c + setItem.Product_Item__r.Price__c)
+//                        );
+//                        productSetsToUpdate.put(ps.Id, ps);
+//                    }catch (Exception e){System.debug(e.getStackTraceString());}
+//                }
+//                else {
+//                    productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c += setItem.Product_Item__r.Price__c;
+//                }
+//            }
+//        }
+//        upsert productSetsToUpdate.values();
     }
 
     public void updateHighestItemPrice(){
