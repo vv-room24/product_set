@@ -5,37 +5,30 @@
 @IsTest
 private class ProductSetPriceHandlerTest2 {
 
-    public static List<Set_Item__c> getSetItems(){
+    static void getSetItems(){
 
-        List <Product_Item__c> productItems = [SELECT Name, Price__c FROM Product_Item__c];
-        List <Set_Item__c> setItems = new List<Set_Item__c>();
-        List <Product_Set__c> productSets = [SELECT Name, Total_Price__c, Highest_Item_Price__c FROM Product_Set__c];
-
-        for (Integer i = 0; i < productItems.size(); i++){
-            Set_Item__c setItem = new Set_Item__c();
-            setItem.Name = 'TestSetItem' + i;
-            setItem.Product_Item__c = productItems[i].Id;
-            setItem.Product_Set__c = productSets[0].Id;
-            setItems.add(setItem);
+        Product_Set__c testProductSet = new Product_Set__c(Name = 'TestProductSet', Total_Price__c = 0, Highest_Item_Price__c = 0);
+        insert testProductSet;
+        List <Product_Item__c> testProductItems = new List<Product_Item__c>();
+        for (Integer i = 0; i < 10; i++){
+            Product_Item__c testProductItem = new Product_Item__c(Name = 'drink ' + i, Price__c = i*10, Category__c = 'drinks');
+            testProductItems.add(testProductItem);
         }
-        return setItems;
+        insert testProductItems;
+        for (Integer i = 0; i < testProductItems.size(); i++){
+            Set_Item__c setItem = new Set_Item__c(Name = 'TestSetItem ' + i, Product_Set__c = testProductSet.Id, Product_Item__c = testProductItems[i].Id);
+            insert setItem;
+        }
     }
 
     @IsTest
     static void testInsertSetItems() {
 
         Test.startTest();
-        insert getSetItems();
+            ProductSetPriceHandlerTest2.getSetItems();
         Test.stopTest();
 
-        List <AggregateResult> productPrices = [SELECT SUM(Price__c)total FROM Product_Item__c ];
-        System.debug(productPrices);
-        Object total = productPrices[0].get('total');
-        System.debug(total);
-        List <Set_Item__c> setItems = [SELECT Name, Product_Set__r.Total_Price__c, Product_Set__r.Highest_Item_Price__c
-                                        FROM Set_Item__c WHERE Name = 'TestSetItem0'];
-        Decimal totDecimal = setItems[0].Product_Set__r.Total_Price__c;
-        System.debug(totDecimal);
-
+        List <Set_Item__c> eItems = [SELECT Name, Product_Set__c FROM Set_Item__c WHERE Name = 'TestSetItem 0'];
+        System.debug(eItems[0].Name);
     }
 }

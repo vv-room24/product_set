@@ -75,40 +75,13 @@ public with sharing class ProductSetPriceHandler {
     }
 
     public void updateDeletedHighestItemPrice(){
-
-//        List <Id> setItemsIds = new List<Id>();
-//        for (Set_Item__c setItem : setItems){
-//            setItemsIds.add(setItem.Product_Set__c);
-//        }
-//
-//        Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>([SELECT Highest_Item_Price__c,
-//                                                                                    (SELECT Product_Item__r.Price__c
-//                                                                                    FROM Unique_Sets__r)
-//                                                                                    FROM Product_Set__c
-//                                                                                    WHERE Id IN : setItemsIds
-//                                                                                    ]);
-//        List <Product_Set__c> productSets = productSetsToUpdate.values();
-//        for (Integer i = 0; i < productSets.size(); i++) {
-//            Decimal highest = 0;
-//            for (Integer j = 0; j < productSets[i].Unique_Sets__r.size(); j++) {
-//                if (highest < productSets[i].Unique_Sets__r[j].Product_Item__r.Price__c) {
-//                    highest = productSets[i].Unique_Sets__r[j].Product_Item__r.Price__c;
-//                }
-//            }
-//            productSets[i].Highest_Item_Price__c = highest;
-//        }
-//        update productSets;
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
         for (Integer i = 0; i < setItemsResults.size(); i++){
-            System.debug('Agg ' + i);
             if ((Decimal)setItemsResults[i].get('price') < (Decimal)setItemsResults[i].get('highest')){
-                System.debug('Not equal');
                 Product_Set__c ps = new Product_Set__c(
                         Id = (Id)setItemsResults[i].get('Product_Set__c'),
                         Highest_Item_Price__c = (Decimal)setItemsResults[i].get('price')
                 );
-                System.debug(ps.Id);
-                System.debug(ps.Highest_Item_Price__c);
                 productSetsToUpdate.put(ps.Id, ps);
             }
         }
