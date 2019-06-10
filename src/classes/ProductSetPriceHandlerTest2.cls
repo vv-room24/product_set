@@ -28,7 +28,18 @@ private class ProductSetPriceHandlerTest2 {
             ProductSetPriceHandlerTest2.getSetItems();
         Test.stopTest();
 
-        List <Set_Item__c> eItems = [SELECT Name, Product_Set__c FROM Set_Item__c WHERE Name = 'TestSetItem 0'];
-        System.debug(eItems[0].Name);
+        List <AggregateResult> setItemsResult = [SELECT Product_Set__c,
+                MAX(Product_Item__r.Price__c)price,
+                MAX(Product_Set__r.Highest_Item_Price__c)highest
+        FROM Set_Item__c
+        WHERE Name = 'TestSetItem 0'
+        GROUP BY Product_Set__c];
+
+        Decimal price = (Decimal)setItemsResult[0].get('price');
+        Decimal highest = (Decimal)setItemsResult[0].get('highest');
+        System.debug(price);
+        System.debug(highest);
+
+        System.assertEquals(price, highest);
     }
 }
