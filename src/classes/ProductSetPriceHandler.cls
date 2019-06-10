@@ -13,6 +13,7 @@ public with sharing class ProductSetPriceHandler {
 
     public ProductSetPriceHandler(List <Set_Item__c> setItems){
         List <Set_Item__c> retrieveSIList = [SELECT
+                                            Product_Set__c,
                                             Product_Item__r.Price__c,
                                             Product_Set__r.Id,
                                             Product_Set__r.Total_Price__c,
@@ -64,7 +65,7 @@ public with sharing class ProductSetPriceHandler {
         upsert productSetsToUpdate.values();
     }
 
-    public void updateDeletedHighestItemPrice(){
+    public void updateDeletedHighestItemPrice(List <Set_Item__c> setItems){
 //        Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
 //        for (Set_Item__c setItem : newPriceList){
 //            setItem.Product_Set__r.Highest_Item_Price__c = 0;
@@ -84,16 +85,17 @@ public with sharing class ProductSetPriceHandler {
 //        }
 //        upsert productSetsToUpdate.values();
 
-        Set <Id> setItemsIds = new Set<Id>();
-        for (Set_Item__c setItem : siList){
-            setItemsIds.add(setItem.Product_Set__r.Id);
+        List <Id> setItemsIds = new List<Id>();
+        for (Set_Item__c setItem : setItems){
+            setItemsIds.add(setItem.Product_Set__c);
         }
 
-        Map <Id, Product_Set__c> productSetsToUpdate2 = new Map <Id, Product_Set__c>([SELECT Name, Highest_Item_Price__c,
+        Map <Id, Product_Set__c> productSetsToUpdate2 = new Map <Id, Product_Set__c>([SELECT Highest_Item_Price__c,
                                                                                         (SELECT Product_Item__r.Price__c
-                                                                                        FROM Unique_Sets__r)
+                                                                                        FROM Unique_Sets__r
+                                                                                        )
                                                                                         FROM Product_Set__c
-//                                                                                        WHERE Id IN : setItemsIds
+                                                                                        WHERE Id IN : setItemsIds
                                                                                       ]);
         List <Product_Set__c> productSets = productSetsToUpdate2.values();
         for (Integer i = 0; i < productSets.size(); i++) {

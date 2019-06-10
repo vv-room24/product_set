@@ -19,6 +19,6 @@ trigger ProductSetUpdate on Set_Item__c (after insert, after update, before dele
 
     if (Trigger.isAfter && Trigger.isDelete) {
         ProductSetPriceHandler priceHandler = new ProductSetPriceHandler(Trigger.old);
-        priceHandler.updateDeletedHighestItemPrice();
-}
+        priceHandler.updateDeletedHighestItemPrice(Trigger.old);
+    }
 }
