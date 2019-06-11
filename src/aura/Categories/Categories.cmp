@@ -12,9 +12,12 @@
     <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-    <aura:handler name="change" action="{!c.handleRemovedItem}" value="{!v.selectedItem}"/>
+<!--    <aura:handler name="change" action="{!c.handleRemovedItem}" value="{!v.selectedItem}"/>-->
 
     <aura:method name="getSetItems" action="{!c.handleSelectedProductSet}" access="PUBLIC">
+    </aura:method>
+
+    <aura:method name="returnCategoryItem" action="{!c.handleRemovedItem}" access="PUBLIC">
     </aura:method>
 
     <aura:registerEvent name="addCategoryItem" type="c:AddCategoryItemEvent"/>

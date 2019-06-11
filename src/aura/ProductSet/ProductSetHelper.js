@@ -74,6 +74,10 @@
     handleRemoveCategoryItemEvent : function (component, event, helper) {
         var selectedCategoryItem = event.getParam("itemName");
         component.set("v.selectedItem", selectedCategoryItem);
+
+        // var selectedProductSet = event.getParam("productSetId");
+        // component.set("v.selectedProductSet", selectedProductSet);
+        component.find("categories").returnCategoryItem();
     }
 
 });
