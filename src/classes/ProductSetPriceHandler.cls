@@ -4,10 +4,10 @@
 
 public with sharing class ProductSetPriceHandler {
 
-    List <Set_Item__c> siList;
+    List <Set_Item__c> setItemList;
     List <AggregateResult> setItemsResults;
     public ProductSetPriceHandler(List <Set_Item__c> setItems){
-        List <Set_Item__c> retrieveSIList = [SELECT
+        List <Set_Item__c> retrievedSetItems = [SELECT
                                             Product_Set__c,
                                             Product_Item__r.Price__c,
                                             Product_Set__r.Id,
@@ -15,7 +15,7 @@ public with sharing class ProductSetPriceHandler {
                                             Product_Set__r.Highest_Item_Price__c
                                             FROM Set_Item__c
                                             WHERE Id IN :setItems];
-        siList = retrieveSIList;
+        setItemList = retrievedSetItems;
 
         Set <Id> setItemsIds = new Set<Id>();
         for (Set_Item__c setItem : setItems){
@@ -35,7 +35,7 @@ public with sharing class ProductSetPriceHandler {
     public void updateTotalPrice(Boolean isDeletedSetItem){
         Boolean isDeleted = isDeletedSetItem;
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
-        for (Set_Item__c setItem : siList){
+        for (Set_Item__c setItem : setItemList){
             if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
                 Product_Set__c productSet = new Product_Set__c(
                         Id = setItem.Product_Set__r.Id,
@@ -56,7 +56,7 @@ public with sharing class ProductSetPriceHandler {
 
     public void updateHighestItemPrice(){
         Map <Id, Product_Set__c> productSetsToUpdate = new Map <Id, Product_Set__c>();
-        for (Set_Item__c setItem : siList){
+        for (Set_Item__c setItem : setItemList){
             if(setItem.Product_Set__r.Highest_Item_Price__c < setItem.Product_Item__r.Price__c){
                 if(!productSetsToUpdate.containsKey(setItem.Product_Set__r.Id)) {
                     Product_Set__c ps = new Product_Set__c(

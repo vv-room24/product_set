@@ -1,89 +1,85 @@
 /**
- * Created by владимир on 24.05.2019.
+ * Created by vvermiichuk on 10.06.2019.
  */
 
 @IsTest
 private class ProductSetPriceHandlerTest {
 
-    public static List <Set_Item__c> dataForUpdate(){
+    static List <Set_Item__c> getSetItems(){
 
-        Product_Item__c pItem1 = new Product_Item__c(
-                Name = 'Gin',
-                Price__c = 30,
-                Category__c = 'drinks');
+        Product_Set__c testProductSet = new Product_Set__c(Name = 'TestProductSet', Total_Price__c = 0, Highest_Item_Price__c = 0);
+        insert testProductSet;
+        List <Product_Item__c> testProductItems = new List<Product_Item__c>();
+        for (Integer i = 0; i < 10; i++){
+            Product_Item__c testProductItem = new Product_Item__c(Name = 'drink ' + i, Price__c = i*10, Category__c = 'drinks');
+            testProductItems.add(testProductItem);
+        }
+        insert testProductItems;
 
-        Product_Item__c pItem2 = new Product_Item__c(
-                Name = 'Juice',
-                Price__c = 25,
-                Category__c = 'drinks');
+        List <Set_Item__c> setItems = new List<Set_Item__c>();
+        for (Integer i = 0; i < testProductItems.size(); i++){
+            Set_Item__c setItem = new Set_Item__c(Name = 'TestSetItem ' + i, Product_Set__c = testProductSet.Id, Product_Item__c = testProductItems[i].Id);
+            setItems.add(setItem);
+            insert setItem;
+        }
+        return setItems;
+    }
 
-        insert pItem1;
-        insert pItem2;
+    @IsTest
+    static void testInsertSetItems() {
 
-        Product_Set__c pSet = new Product_Set__c(Name = 'TestPSet');
+        Test.startTest();
+            ProductSetPriceHandlerTest.getSetItems();
+        Test.stopTest();
 
-        insert pSet;
+        List <AggregateResult> setItemsResult = [SELECT Product_Set__c,
+                                                MAX(Product_Item__r.Price__c)maxPrice,
+                                                MAX(Product_Set__r.Highest_Item_Price__c)highest,
+                                                SUM(Product_Item__r.Price__c)sumPrice,
+                                                MAX(Product_Set__r.Total_Price__c)totalPrice
+                                                FROM Set_Item__c
+                                                GROUP BY Product_Set__c];
 
-        Set_Item__c sItem1 = new Set_Item__c(
-                Name = 'TestSetItem1',
-                Product_Set__c = pSet.Id,
-                Product_Item__c = pItem1.Id);
+        Decimal maxPrice = (Decimal)setItemsResult[0].get('maxPrice');
+        Decimal highest = (Decimal)setItemsResult[0].get('highest');
+        Decimal sumPrice = (Decimal)setItemsResult[0].get('sumPrice');
+        Decimal totalPrice = (Decimal)setItemsResult[0].get('totalPrice');
 
-        Set_Item__c sItem2 = new Set_Item__c(
-                Name = 'TestSetItem2',
-                Product_Set__c = pSet.Id,
-                Product_Item__c = pItem2.Id);
-
-        List <Set_Item__c> testItems = new List<Set_Item__c>();
-        testItems.add(sItem1);
-        testItems.add(sItem2);
-        return testItems;
+        System.assertEquals(maxPrice, highest);
+        System.debug(maxPrice + '---' + highest);
+        System.assertEquals(sumPrice, totalPrice);
+        System.debug(sumPrice + '---' + totalPrice);
     }
 
     @isTest
-    public static void updateTotalPriceTest(){
+    static void testDeleteSetItems(){
+
+        List <Set_Item__c> setItems = ProductSetPriceHandlerTest.getSetItems();
+        List <Set_Item__c> deletedSetItems = new List<Set_Item__c>();
+        for(Integer i = setItems.size() - 1; i > (setItems.size())/2; i--){
+            deletedSetItems.add(setItems[i]);
+        }
 
         Test.startTest();
-        List <Set_Item__c> testSetItems = dataForUpdate();
-        insert testSetItems;
+            delete deletedSetItems;
         Test.stopTest();
 
-        List<Product_Set__c> newProductSet = [SELECT Id, Name, Total_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
-        System.debug(newProductSet);
-        Decimal newTotalPrice = newProductSet[0].Total_Price__c;
+        List <AggregateResult> setItemsResult = [SELECT Product_Set__c,
+                                                MAX(Product_Item__r.Price__c)maxPrice,
+                                                MAX(Product_Set__r.Highest_Item_Price__c)highest,
+                                                SUM(Product_Item__r.Price__c)sumPrice,
+                                                MAX(Product_Set__r.Total_Price__c)totalPrice
+                                                FROM Set_Item__c
+                                                GROUP BY Product_Set__c];
 
-        System.assertEquals(55, newTotalPrice);
-    }
+        Decimal maxPrice = (Decimal)setItemsResult[0].get('maxPrice');
+        Decimal highest = (Decimal)setItemsResult[0].get('highest');
+        Decimal sumPrice = (Decimal)setItemsResult[0].get('sumPrice');
+        Decimal totalPrice = (Decimal)setItemsResult[0].get('totalPrice');
 
-    @isTest
-    public static void updateHighestItemPriceTest(){
-
-        Test.startTest();
-        List <Set_Item__c> testSetItems = dataForUpdate();
-        insert testSetItems;
-        Test.stopTest();
-
-        List<Product_Set__c> newProductSet = [SELECT Id, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
-        System.debug(newProductSet);
-        Decimal newHighestItemPrice = newProductSet[0].Highest_Item_Price__c;
-
-        System.assertEquals(30, newHighestItemPrice);
-    }
-
-    @isTest
-    public static void updateDeletedHighestItemPriceTest(){
-
-        Test.startTest();
-        List <Set_Item__c> testSetItems = dataForUpdate();
-        insert testSetItems;
-        List <Set_Item__c> setItemsForDelete = [SELECT Id FROM Set_Item__c WHERE Name = 'TestSetItem1'];
-        delete setItemsForDelete;
-        Test.stopTest();
-
-        List<Product_Set__c> newProductSet = [SELECT Id, Name, Highest_Item_Price__c FROM Product_Set__c WHERE Name = 'TestPSet'];
-        System.debug(newProductSet);
-        Decimal newHighestPrice = newProductSet[0].Highest_Item_Price__c;
-
-        System.assertEquals(25, newHighestPrice);
+        System.assertEquals(maxPrice, highest);
+        System.debug(maxPrice + '---' + highest);
+        System.assertEquals(sumPrice, totalPrice);
+        System.debug(sumPrice + '---' + totalPrice);
     }
 }
