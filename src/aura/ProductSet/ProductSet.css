@@ -3,9 +3,9 @@
  */
 
 .THIS.c-container {
-    border: 1px solid #d8dde6;
+    border: 1px solid lightskyblue;
     margin: 10px 0 20px 0;
-    background-color: #d0d0dd;
+    background-color: lightblue;
 }
 
 .THIS.row {
@@ -14,7 +14,7 @@
 }
 
 .THIS.row .header {
-    border-bottom: 20px solid #ccc;
+    border-bottom: 20px solid lightskyblue;
     padding-bottom: 10px;
     margin-bottom: 15px;
 }

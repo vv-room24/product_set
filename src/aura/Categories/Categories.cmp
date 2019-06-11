@@ -4,11 +4,11 @@
 
 <aura:component description="Categories" controller="CategoriesController">
 
-    <aura:attribute name="products" type="Object" access="public"/>
+    <aura:attribute name="products" type="List" access="public"/>
     <aura:attribute name="categories" type="List" access="public"/>
     <aura:attribute name="categoryItems" type="List" access="public"/>
     <aura:attribute name = "selectedItem" type="String" access="public"/>
-    <aura:attribute name = "setItems" type="Object" access="public"/>
+    <aura:attribute name = "setItems" type="List" access="public"/>
     <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
@@ -28,7 +28,12 @@
                             <ol>
                                 <li>
                                     {!categoryItem}
-                                    <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}"/>
+                                    <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}">
+                                        <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="small" alternativeText="add" />
+                                    </lightning:button>
+
+<!--                                    {!categoryItem}-->
+<!--                                    <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}"/>-->
                                 </li>
                             </ol>
                         </aura:iteration>

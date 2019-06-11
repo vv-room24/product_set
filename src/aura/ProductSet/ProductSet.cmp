@@ -18,12 +18,13 @@
 
     <div class="c-container">
         <div class="slds-box">
-            <lightning:card class="slds-box slds-theme_shade slds-theme_alert-texture">
+            <lightning:card class="slds-box slds-theme_shade slds-theme_alert-texture" >
                 <aura:set  attribute="title">
-                    <lightning:icon iconName="action:approval" size="small"/>
-                    <div class="slds-text-heading_medium">
-                        {! v.title }
-                    </div>
+                        <lightning:icon iconName="action:approval" size="small"/>
+                        <div class="slds-text-heading_large" >
+                            {! v.title }
+                        </div>
+
                 </aura:set>
                 This page for service product set and products
             </lightning:card>
