@@ -12,4 +12,14 @@ public with sharing class ProductSetListController {
         }
         return productSets;
     }
+
+    @AuraEnabled
+    public static void createNewSet(String name){
+        Product_Set__c newProductSet = new Product_Set__c(
+                Name = name,
+                Total_Price__c = 0,
+                Highest_Item_Price__c = 0
+        );
+        insert newProductSet;
+    }
 }
