@@ -2,7 +2,14 @@
  * Created by vvermiichuk on 03.06.2019.
  */
 
-.THIS .my-custom-background{
-    background-color: #16325c;
+.THIS .my-custom-background {
     padding: 12px;
+}
+
+.THIS .my-custom-background svg{
+    color: black;
+}
+
+.THIS .slds-item {
+    text-align: right;
 }

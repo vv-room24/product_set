@@ -4,12 +4,12 @@
 
 <aura:component description="ProductSetItemList" controller="ProductSetItemListController">
 
-    <aura:attribute name ="productSetId" type="String" access="public"/>
-    <aura:attribute name ="productSetItems" type="List" access="public"/>
-    <aura:attribute name ="productSetName" type="String" access="public"/>
-    <aura:attribute name ="productSetTotalPrice" type="Decimal" access="public"/>
-    <aura:attribute name ="productSetDetailed" type="Product_Set__c" access="public"/>
-    <aura:attribute name="isOpen" type="boolean" default="false"/>
+    <aura:attribute name = "productSetId" type="String" access="public"/>
+    <aura:attribute name = "productSetItems" type="List" access="public"/>
+    <aura:attribute name = "productSetName" type="String" access="public"/>
+    <aura:attribute name = "productSetTotalPrice" type="Decimal" access="public"/>
+    <aura:attribute name = "productSetDetailed" type="Product_Set__c" access="public"/>
+    <aura:attribute name = "isOpen" type="boolean" default="false"/>
 
     <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
 
@@ -24,9 +24,10 @@
         <aura:iteration items="{!v.productSetItems}" var="productSetItem">
             <div class="slds-p-around_medium">
             <ul class="slds-has-dividers_around-space">
-                <li class="slds-item">{!productSetItem}
+                <li class="slds-item">
+                    {!productSetItem}
                     <a class="my-custom-background">
-                    <lightning:buttonIcon iconName="utility:close"  variant="border-inverse" value="{!productSetItem}" alternativeText="Remove" onclick="{!c.removeItem}"/>
+                        <lightning:buttonIcon iconName="utility:close"  variant="bare-inverse" value="{!productSetItem}" alternativeText="Remove" onclick="{!c.removeItem}"/>
                     </a>
                 </li>
             </ul>
@@ -34,7 +35,7 @@
         </aura:iteration>
     </div>
     <div >
-        Total price of product set: {!v.productSetTotalPrice}
+        Total price: {!v.productSetTotalPrice}
     </div>
     <div class="slds-m-around_xx-small">
         <lightning:button  class="slds-button slds-button_inverse" label="More..." name="Set Detail" onclick="{!c.getSetDetalis}"/>

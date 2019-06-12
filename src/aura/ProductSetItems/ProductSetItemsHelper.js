@@ -20,11 +20,8 @@
 
     fireSelectProductSetEvent : function (component, event, helper) {
         var selected = component.find("selectProductSet").get("v.value");
-        if (selected === "New Set"){
+        if (selected === component.find("createNewSetButton").get("v.label")){
             helper.createRecord(component, event, helper);
-            // console.log("matched");
-            // component.set("v.isOpen", true);
-            // console.log(component.get("v.isOpen"));
         }else {
             var selectedPSEvent = component.getEvent("changeProductSet");
             selectedPSEvent.setParams({
@@ -32,29 +29,6 @@
             });
             selectedPSEvent.fire();
         }
-    },
-
-    closeModel: function(component, event, helper) {
-        component.set("v.isOpen", false);
-    },
-
-    handleNewSetSave : function (component, event, helper) {
-
-        var action = component.get("c.createNewSet");
-        action.setParams({
-            name: component.get("v.newSetName")
-        });
-
-        action.setCallback(this, $A.getCallback(function (response) {
-            var state = response.getState();
-            if(component.isValid() && state === "SUCCESS"){
-                console.log(component.get("v.newSetName") + " is created");
-            }
-            else {
-                console.log("Failed with state: " + state);
-            }
-        }));
-        $A.enqueueAction(action);
     },
 
     createRecord : function (component, event, helper) {
@@ -68,15 +42,6 @@
             }
         });
         createNewProductSet.fire();
-    },
-
-    showToast : function(component, event, helper) {
-        var toastEvent = $A.get("e.force:showToast");
-        toastEvent.setParams({
-            "title": component.get("v.newSetName"),
-            "message": "Set has been created successfully",
-            "type": "success"
-        });
-        toastEvent.fire();
     }
+
 });

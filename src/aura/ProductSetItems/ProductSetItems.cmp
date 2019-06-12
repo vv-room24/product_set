@@ -6,54 +6,26 @@
 
     <aura:attribute name = "productSets" type="Object" access="public"/>
     <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
-    <aura:attribute name="isOpen" type="boolean" default="false"/>
-    <aura:attribute name="newSetName" type="String"/>
+    <aura:attribute name = "isOpen" type="boolean" default="false"/>
+    <aura:attribute name = "newSetName" type="String"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 
     <aura:registerEvent name = "changeProductSet" type="c:LoadProductSetItemsEvent"/>
 
-    <lightning:layout>
-        <lightning:layoutItem>
+    <lightning:layout >
+        <lightning:layoutItem >
             <div class="slds-form-element">
-                <lightning:select class="slds-select" aura:id = "selectProductSet" name = "Product Set Name" label="Product Set Name:"  onchange="{!c.handleSelectProductSet}">
+                <lightning:select class="select-container" aura:id = "selectProductSet" name = "Product Set Name" label="Product Set:"  onchange="{!c.handleSelectProductSet}">
                     <option> -- Please select -- </option>
                     <aura:iteration items="{!v.productSets}" var="productSet">
                         <option text="{!productSet.label}" value="{!productSet.value}"/>
                     </aura:iteration>
-                    <option value="New Set">
-
-                        <lightning:button aura:id = "createNewSetButton" name="New" label="New Set"/>
-
+                    <option value="+ New Set">
+                        <lightning:button aura:id = "createNewSetButton" name="New" label="+ New Set"/>
                     </option>
                 </lightning:select>
             </div>
-            <aura:if isTrue="{!v.isOpen}">
-                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                    <div class="slds-modal__container">
-                        <header class="slds-modal__header">
-                            <lightning:buttonIcon iconName="utility:close"
-                                                  onclick="{! c.closeModel }"
-                                                  alternativeText="Close"
-                                                  variant="bare-inverse"
-                                                  class="slds-modal__close"/>
-                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Set the Name of Product Set:</h2>
-                        </header>
-                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                            <div class="slds-has-dividers_around-space">
-                                <lightning:input name="input" label="Name:" placeholder="type here..." value="{!v.newSetName}"/>
-                            </div>
-                        </div>
-                        <footer class="slds-modal__footer">
-                            <lightning:button variant="neutral"
-                                              label="Save"
-                                              title="Save"
-                                              onclick="{!c.saveNewSet}"/>
-                        </footer>
-                    </div>
-                </section>
-                <div class="slds-backdrop slds-backdrop_open"></div>
-            </aura:if>
         </lightning:layoutItem>
     </lightning:layout>
 
