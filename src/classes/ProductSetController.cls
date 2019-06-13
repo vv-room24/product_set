@@ -36,11 +36,15 @@ public with sharing class ProductSetController {
     @AuraEnabled
     public static void addSetItem(String productItemName, Id selectedProductSet){
         Id productItemId;
-        for (Product_Item__c productItem : [SELECT Id FROM Product_Item__c WHERE Name =: productItemName]){
+        for (Product_Item__c productItem : [SELECT Id
+                                            FROM Product_Item__c
+                                            WHERE Name =: productItemName]){
             productItemId = productItem.Id;
         }
         String productSetName;
-        for (Product_Set__c productSet : [SELECT Name FROM Product_Set__c WHERE Id =: selectedProductSet]){
+        for (Product_Set__c productSet : [SELECT Name
+                                        FROM Product_Set__c
+                                        WHERE Id =: selectedProductSet]){
             productSetName = productSet.Name;
         }
         Set_Item__c newSetItem = new Set_Item__c();
@@ -48,6 +52,24 @@ public with sharing class ProductSetController {
         newSetItem.Product_Set__c = selectedProductSet;
         newSetItem.Name = productSetName + '_' + productItemName;
         insert newSetItem;
+    }
+
+    @AuraEnabled
+    public static void removeSetItem(String productItemName, Id selectedProductSet){
+        Id productItemId;
+        for (Product_Item__c productItem : [SELECT Id
+                                            FROM Product_Item__c
+                                            WHERE Name =: productItemName]){
+            productItemId = productItem.Id;
+        }
+        Set_Item__c removedSetItem;
+        for (Set_Item__c setItem : [SELECT Product_Set__c, Product_Item__c
+                                    FROM Set_Item__c
+                                    WHERE Product_Item__c =: productItemId
+                                    AND Product_Set__c =: selectedProductSet]){
+            removedSetItem = setItem;
+        }
+        delete removedSetItem;
     }
 
 }

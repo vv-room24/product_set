@@ -87,15 +87,30 @@
             }
         }));
         $A.enqueueAction(action);
-
     },
-    
-
 
     handleRemoveCategoryItemEvent : function (component, event, helper) {
         var selectedCategoryItem = event.getParam("itemName");
         component.set("v.selectedItem", selectedCategoryItem);
         component.find("categories").returnCategoryItem();
+
+        var action = component.get("c.removeSetItem");
+        action.setParams({
+            productItemName: selectedCategoryItem,
+            selectedProductSet: component.get("v.selectedProductSet"),
+
+        });
+
+        action.setCallback(this, $A.getCallback(function (response) {
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                console.log("Successful removing with state: " + state);
+            }
+            else {
+                console.log("Failed with state: " + state);
+            }
+        }));
+        $A.enqueueAction(action);
     }
 
 });
