@@ -48,7 +48,7 @@ public with sharing class ProductSetPriceHandler {
             else {
                 productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c = ((isDeleted)?
                         (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c - setItem.Product_Item__r.Price__c):
-                        (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c += setItem.Product_Item__r.Price__c));
+                        (productSetsToUpdate.get(setItem.Product_Set__r.Id).Total_Price__c + setItem.Product_Item__r.Price__c));
             }
         }
         upsert productSetsToUpdate.values();
