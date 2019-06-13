@@ -3,6 +3,25 @@
  */
 
 ({
+    getProductSetItems : function (component, event, helper) {
+        var action = component.get("c.getSetItems");
+
+        action.setParams({
+            productSetId: component.get("v.selectedProductSet"),
+        });
+
+        action.setCallback(this, $A.getCallback(function (response) {
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+                component.set("v.productSetItems", response.getReturnValue());
+            }
+            else {
+                console.log("Failed with state: " + state);
+            }
+        }));
+        $A.enqueueAction(action);
+    },
+
     handleSelectProductSetEvent : function (component, event, helper) {
         var selectedProductSet = event.getParam("productSetId");
         component.set("v.selectedProductSet", selectedProductSet);
@@ -50,33 +69,32 @@
         var selectedCategoryItem = event.getParam("itemName");
         selectedProductSetItems.push(selectedCategoryItem);
         component.set("v.productSetItems", selectedProductSetItems);
-    },
-    
-    getProductSetItems : function (component, event, helper) {
-        var action = component.get("c.getSetItems");
 
+        var action = component.get("c.addSetItem");
         action.setParams({
-            productSetId: component.get("v.selectedProductSet"),
+            productItemName: selectedCategoryItem,
+            selectedProductSet: component.get("v.selectedProductSet"),
+
         });
 
         action.setCallback(this, $A.getCallback(function (response) {
             var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
-                component.set("v.productSetItems", response.getReturnValue());
+                console.log("Successful inserting with state: " + state);
             }
             else {
                 console.log("Failed with state: " + state);
             }
         }));
         $A.enqueueAction(action);
+
     },
+    
+
 
     handleRemoveCategoryItemEvent : function (component, event, helper) {
         var selectedCategoryItem = event.getParam("itemName");
         component.set("v.selectedItem", selectedCategoryItem);
-
-        // var selectedProductSet = event.getParam("productSetId");
-        // component.set("v.selectedProductSet", selectedProductSet);
         component.find("categories").returnCategoryItem();
     }
 

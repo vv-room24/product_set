@@ -60,41 +60,16 @@
             }
         }));
         $A.enqueueAction(action);
-
-        // for (var i = 0; i < setItems.length; i++){
-        //     console.log(setItems[i].Product_Set__r.Name);
-        //     if (setItems[i].Product_Set__c == selectedProductSet){
-        //         // for (var j = 0; j < products.length; j++){
-        //         //     if (products[j].Name == setItems[i].Product_Item__r.Name){
-        //         //         console.log(products[j].Name + "matched");
-        //         //         products.splice(j, 1);
-        //         //     }
-        //         // }
-        //         for (var j = 0; j < categoryItems.length; j++){
-        //             if(categoryItems[j] == setItems[i].Product_Item__r.Name){
-        //                 console.log(categoryItems[j] + "matched");
-        //                 categoryItems.splice(j, 1);
-        //             }
-        //         }
-        //     }
-        // }
-        // console.log(categoryItems);
-        // component.set("v.categoryItems", categoryItems)
-        // component.set("v.products", products);
-        // console.log("products corrected");
     },
 
     getCategoryItems : function (component, event, helper) {
         var selectedItems = [];
         var products = component.get("v.products");
         var selectedCategory = component.find("accordion").get("v.activeSectionName");
-        var categoryItems = component.get("v.categoryItems");
         for(var i = 0; i < products.length; i++){
             if (products[i].Category__c == selectedCategory)
                 selectedItems.push(products[i].Name);
         };
-        // console.log(categoryItems);
-        // console.log(selectedItems);
         component.set("v.categoryItems", selectedItems.sort());
     },
 

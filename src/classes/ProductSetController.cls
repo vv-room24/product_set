@@ -24,16 +24,6 @@ public with sharing class ProductSetController {
         return totalPrice;
     }
 
-//    @AuraEnabled
-//    public static List <String> getSetItems(Id productSetId, String selectedItem) {
-//        List<String> productItems = new List<String>();
-//        for (Set_Item__c productItem : [SELECT Product_Item__r.Name FROM Set_Item__c WHERE Product_Set__r.Id = :productSetId]) {
-//            productItems.add(productItem.Product_Item__r.Name);
-//        }
-//        productItems.add(selectedItem);
-//        return productItems;
-//    }
-
     @AuraEnabled
     public static List <String> getSetItems(Id productSetId) {
         List<String> productItems = new List<String>();
@@ -41,6 +31,23 @@ public with sharing class ProductSetController {
             productItems.add(productItem.Product_Item__r.Name);
         }
         return productItems;
+    }
+
+    @AuraEnabled
+    public static void addSetItem(String productItemName, Id selectedProductSet){
+        Id productItemId;
+        for (Product_Item__c productItem : [SELECT Id FROM Product_Item__c WHERE Name =: productItemName]){
+            productItemId = productItem.Id;
+        }
+        String productSetName;
+        for (Product_Set__c productSet : [SELECT Name FROM Product_Set__c WHERE Id =: selectedProductSet]){
+            productSetName = productSet.Name;
+        }
+        Set_Item__c newSetItem = new Set_Item__c();
+        newSetItem.Product_Item__c = productItemId;
+        newSetItem.Product_Set__c = selectedProductSet;
+        newSetItem.Name = productSetName + '_' + productItemName;
+        insert newSetItem;
     }
 
 }
