@@ -10,6 +10,8 @@
     <aura:attribute name = "productSetTotalPrice" type="Decimal" access="public"/>
     <aura:attribute name = "productSetDetailed" type="Product_Set__c" access="public"/>
     <aura:attribute name = "isOpen" type="boolean" default="false"/>
+    <aura:attribute name = "setData" type="Object"/>
+    <aura:attribute name = "dataColumns" type="List"/>
 
     <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
 
@@ -56,6 +58,9 @@
                             <li class="slds-item"> Highest Item Price:{!v.productSetDetailed.Highest_Item_Price__c}</li>
                             <li class="slds-item"> Discount:{!v.productSetDetailed.Discount__c}</li>
                         </ul>
+                    </div>
+                    <div>
+                        <lightning:datatable data="{!v.setData}" columns="{!v.dataColumns}" keyField="Id"/>
                     </div>
                     <footer class="slds-modal__footer">
                         <lightning:button variant="neutral"

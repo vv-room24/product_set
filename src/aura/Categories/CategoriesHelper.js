@@ -45,7 +45,6 @@
     },
 
     handleMatchedProducts : function(component, event, helper){
-        console.log("it's helper");
         var action = component.get("c.avoidProductSetItems");
         action.setParams({
             selectedProductSet: component.get("v.selectedProductSet")

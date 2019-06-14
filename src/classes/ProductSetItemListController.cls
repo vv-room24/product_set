@@ -23,4 +23,13 @@ public with sharing class ProductSetItemListController {
                                         WHERE Id = :id];
         return detail[0];
     }
+
+    @AuraEnabled
+    public static List<Set_Item__c> getAllDetails(Id id){
+        List<Set_Item__c> allDetails = [SELECT Name, Product_Set__r.Name, Product_Set__r.Total_Price__c, Product_Set__r.Highest_Item_Price__c,
+        Product_Set__r.Discount__c, Product_Item__r.Name, Product_Item__r.Price__c, Product_Item__r.Category__c
+        FROM Set_Item__c
+        WHERE Product_Set__c = : id];
+        return allDetails;
+    }
 }
