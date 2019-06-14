@@ -16,29 +16,28 @@
     <aura:handler name="addCategoryItem" event="c:AddCategoryItemEvent" action="{!c.handleAddCategoryItem}"/>
     <aura:handler name="removeCategoryItem" event="c:RemoveCategoryItemEvent" action="{!c.handleRemoveCategoryItem}"/>
 
-    <div class="c-container">
+    <div class="c-container slds-box_small">
         <div class="slds-box">
             <lightning:card class="slds-box slds-theme_shade slds-theme_alert-texture" >
                 <aura:set  attribute="title">
-                        <lightning:icon iconName="action:approval" size="small"/>
-                        <div class="slds-text-heading_large" >
-                            {! v.title }
-                        </div>
-
+                    <span>
+                     <lightning:icon iconName="action:approval" size="small"/>
+                    </span>
+                    <span class="slds-text-heading_medium" >
+                        <strong>{! v.title }</strong>
+                    </span>
                 </aura:set>
                 This page for service product set and products
             </lightning:card>
         </div>
         <div class="slds-grid slds-gutters">
-            <div class="slds-col">
+            <div class="slds-col slds-box slds-box_xx-small">
                 <c:ProductSetItems/>
             </div>
-            <div class="slds-col">
-            </div>
-            <div class="slds-col">
+            <div class="slds-col slds-box slds-box_xx-small">
                 <c:Categories aura:id = "categories" selectedProductSet="{!v.selectedProductSet}" selectedItem="{!v.selectedItem}" />
             </div>
-            <div class="slds-col">
+            <div class="slds-col slds-box slds-box_xx-small">
                 <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}" productSetItems="{!v.productSetItems}"/>
             </div>
         </div>

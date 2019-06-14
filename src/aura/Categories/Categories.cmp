@@ -32,10 +32,16 @@
                         <aura:iteration items="{!v.categoryItems}" var="categoryItem">
                             <ol>
                                 <li>
-                                    {!categoryItem}
-                                    <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}">
-                                        <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="xx-small" alternativeText="add" />
-                                    </lightning:button>
+                                    <div class="slds-p-around_xx-small slds-box slds-box_xx-small">
+                                        <span>
+                                            {!categoryItem}
+                                        </span>
+                                        <span style="padding:20px;horiz-align: right;">
+                                        <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}">
+                                            <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="xx-small" alternativeText="add" />
+                                        </lightning:button>
+                                        </span>
+                                    </div>
                                 </li>
                             </ol>
                         </aura:iteration>
