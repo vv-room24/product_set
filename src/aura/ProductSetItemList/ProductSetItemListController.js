@@ -5,11 +5,12 @@
 ({
     doInit : function (component, event, helper) {
         helper.getProductSetItems(component);
-        helper.setTableData(component, event, helper);
+        // helper.setTableData(component, event, helper);
     },
 
     getSetDetalis : function (component, event, helper) {
         helper.getDetails(component);
+        helper.setTableData(component, event, helper);
         helper.openModel(component, event, helper);
     },
 

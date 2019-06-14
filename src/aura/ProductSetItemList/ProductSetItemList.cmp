@@ -60,7 +60,7 @@
                         </ul>
                     </div>
                     <div>
-                        <lightning:datatable data="{!v.setData}" columns="{!v.dataColumns}" keyField="Id"/>
+                        <lightning:datatable data="{!v.setData}" columns="{!v.dataColumns}" keyField="Id" hideCheckboxColumn="true" showRowNumberColumn="true" suppressBottomBar="true"/>
                     </div>
                     <footer class="slds-modal__footer">
                         <lightning:button variant="neutral"
