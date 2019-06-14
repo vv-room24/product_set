@@ -14,10 +14,12 @@
     },
 
     handleAddCategoryItem : function (component, event, helper) {
-        helper.handleAddCategoryItemEvent(component, event, helper)
+        helper.handleAddCategoryItemEvent(component, event, helper);
+        helper.getProductSetTotalPrice(component, event, helper);
     },
 
     handleRemoveCategoryItem : function (component, event, helper) {
-        helper.handleRemoveCategoryItemEvent(component, event, helper)
+        helper.handleRemoveCategoryItemEvent(component, event, helper);
+        helper.getProductSetTotalPrice(component, event, helper);
     }
 });
