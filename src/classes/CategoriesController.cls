@@ -25,10 +25,7 @@ public with sharing class CategoriesController {
         List <Product_Item__c> products = CategoriesController.getProductItems();
         List <Product_Item__c> newProducts = new List<Product_Item__c>();
         List <String> avoidedProductNames = new List<String>();
-        if (selectedProductSet == NULL) {
-            newProducts = products;
-            System.debug(selectedProductSet);
-        }else {
+
             for (Set_Item__c setItem : setItems) {
                 if (setItem.Product_Set__r.Id == selectedProductSet) {
                     avoidedProductNames.add(setItem.Product_Item__r.Name);
@@ -39,7 +36,6 @@ public with sharing class CategoriesController {
                     newProducts.add(products[i]);
                 }
             }
-        }
         return newProducts;
     }
 }

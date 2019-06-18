@@ -45,21 +45,24 @@
     },
 
     handleMatchedProducts : function(component, event, helper){
-        var action = component.get("c.avoidProductSetItems");
-        console.log(component.get("v.selectedProductSet") + " IN CATEGORIES HELPER");
-        action.setParams({
-            selectedProductSet: component.get("v.selectedProductSet")
+        var selectedProductSet = component.get("v.selectedProductSet");
+        if (selectedProductSet === "NULL") {
+            var action = component.get("c.getProductItems");
+        }else{
+            var action = component.get("c.avoidProductSetItems");
+            action.setParams({
+                selectedProductSet: selectedProductSet
         });
-        action.setCallback(this, $A.getCallback(function (response) {
-            var state = response.getState();
-            if(component.isValid() && state === "SUCCESS"){
-                component.set("v.products", response.getReturnValue());
-            }
-            else {
-                console.log("Failed with state: " + state);
-            }
-        }));
-        $A.enqueueAction(action);
+        }
+            action.setCallback(this, $A.getCallback(function (response) {
+                var state = response.getState();
+                if (component.isValid() && state === "SUCCESS") {
+                    component.set("v.products", response.getReturnValue());
+                } else {
+                    console.log("Failed with state: " + state);
+                }
+            }));
+            $A.enqueueAction(action);
     },
 
     getCategoryItems : function (component, event, helper) {
