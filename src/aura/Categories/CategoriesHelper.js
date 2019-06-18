@@ -46,6 +46,7 @@
 
     handleMatchedProducts : function(component, event, helper){
         var action = component.get("c.avoidProductSetItems");
+        console.log(component.get("v.selectedProductSet") + " IN CATEGORIES HELPER");
         action.setParams({
             selectedProductSet: component.get("v.selectedProductSet")
         });
