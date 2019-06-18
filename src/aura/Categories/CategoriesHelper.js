@@ -105,22 +105,50 @@
     },
 
     changeProductItems : function (component, event, helper) {
+
         var selected = component.get("v.selectedItem");
         var items = component.get("v.categoryItems");
         var selectedCategory = component.find("accordion").get("v.activeSectionName");
-        var products = component.get("v.products");
+        var selectedProducts = component.get("v.products");
+        var category = [];
 
-        var productNames = [];
-        for(var i = 0; i < products.length; i++){
-            productNames.push(products[i].Name);
+        var action = component.get("c.getProductItems");
+        action.setCallback(this, $A.getCallback(function (response) {
+            var state = response.getState();
+            if(component.isValid() && state === "SUCCESS"){
+
+                var products = response.getReturnValue();
+                for(var i = 0; i < products.length; i++){
+                    if (selected === products[i].Name) {
+                        category = products[i].Category__c;
+                        var newProduct = new function () {
+                            this.Name = selected, this.Category__c = category;
+                        };
+                        selectedProducts.push(newProduct);
+                        for (var i = 0; i < selectedProducts.length; i++) {
+                            console.log(selectedProducts[i].Name + " - " + selectedProducts[i].Category__c);
+                        }
+                        component.set("v.products", selectedProducts);
+
+                        console.log(selectedCategory);
+                        console.log(newProduct.Category__c);
+                        if (selectedCategory == newProduct.Category__c) {
+                            console.log("YES");
+                            items.push(newProduct.Name);
+                            component.set("v.categoryItems", items.sort());
+                        }
+                    }
+                };
             }
-        var newProduct = new function () {
-            this.Name = selected, this.Category__c = selectedCategory
-            };
-            products.push(newProduct);
-            component.set("v.products", products);
-            items.push(newProduct.Name);
-            component.set("v.categoryItems", items.sort());
+            else {
+                console.log("Failed with state: " + state);
+            }
+        }));
+        $A.enqueueAction(action);
+        // var productNames = [];
+        // for(var i = 0; i < products.length; i++){
+        //     productNames.push(products[i].Name);
+        // }
 
     },
 
