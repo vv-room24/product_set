@@ -111,6 +111,16 @@
             }
         }));
         $A.enqueueAction(action);
+    },
+
+    showToast : function(component, event, helper) {
+        var toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams({
+            "title": "Warning!",
+            "message": "Don't touch this button",
+            "type": "Warning"
+        });
+        toastEvent.fire();
     }
 
 });

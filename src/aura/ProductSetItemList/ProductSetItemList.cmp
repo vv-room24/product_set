@@ -12,17 +12,18 @@
     <aura:attribute name = "isOpen" type="boolean" default="false"/>
     <aura:attribute name = "setData" type="Object"/>
     <aura:attribute name = "dataColumns" type="List"/>
-
-    <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
+    <aura:attribute name = "newSetFormFlag" type="boolean" default="false"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
 
+    <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
+
     <div>
-        Name: {!v.productSetName}
+        <strong>Name: {!v.productSetName}</strong>
     </div>
     <div class="slds-card slds-has-bottom-magnet">
-        Items:
+        <strong>Items:</strong>
         <aura:iteration items="{!v.productSetItems}" var="productSetItem">
             <div class="slds-p-around_medium">
             <ul class="slds-has-dividers_around-space">
@@ -37,10 +38,10 @@
         </aura:iteration>
     </div>
     <div >
-        Total price: {!v.productSetTotalPrice}
+        <strong>Total price: {!v.productSetTotalPrice}</strong>
     </div>
     <div class="slds-m-around_xx-small">
-        <lightning:button  class="slds-button slds-button_inverse" label="More..." name="Set Detail" onclick="{!c.getSetDetalis}"/>
+        <lightning:button  class="slds-button slds-button_inverse" label="More..." name="Set Detail" onclick="{!c.getSetDetails}"/>
         <aura:if isTrue="{!v.isOpen}">
             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
                 <div class="slds-modal__container">

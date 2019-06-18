@@ -7,7 +7,7 @@
     <aura:attribute name = "selectedProductSet" type="Id" access="public"/>
     <aura:attribute name = "productSetName" type="String" access="public"/>
     <aura:attribute name = "productSetTotalPrice" type="Decimal" access="public"/>
-    <aura:attribute name = "title" type="String" default="Product Sets"/>
+    <aura:attribute name = "title" type="String" default=" Product Sets"/>
     <aura:attribute name = "productSetItems" type="List" access="public"/>
     <aura:attribute name = "selectedItem" type="String" access="public"/>
 
@@ -21,7 +21,18 @@
             <lightning:card class="slds-box slds-theme_shade slds-theme_alert-texture" >
                 <aura:set  attribute="title">
                     <span>
-                     <lightning:icon iconName="action:approval" size="small"/>
+                        <button class="slds-button slds-icon-waffle_container" title="Product Sets" onclick="{!c.handleWuffleButton}">
+                            <span class="slds-icon-waffle">
+                            <span class="slds-r1"></span>
+                            <span class="slds-r2"></span>
+                            <span class="slds-r3"></span>
+                            <span class="slds-r4"></span>
+                            <span class="slds-r6"></span>
+                            <span class="slds-r7"></span>
+                            <span class="slds-r8"></span>
+                            <span class="slds-r9"></span>
+                            </span>
+                        </button>
                     </span>
                     <span class="slds-text-heading_medium" >
                         <strong>{! v.title }</strong>
@@ -31,13 +42,13 @@
             </lightning:card>
         </div>
         <div class="slds-grid slds-gutters">
-            <div class="slds-col slds-box slds-box_xx-small">
+            <div class="slds-col slds-box slds-box_xx-small slds-size_1-of-3" style="background-color: #7495ed">
                 <c:ProductSetItems/>
             </div>
-            <div class="slds-col slds-box slds-box_xx-small">
+            <div class="slds-col slds-box slds-box_xx-small slds-size_1-of-3" style="background-color: #5485ed">
                 <c:Categories aura:id = "categories" selectedProductSet="{!v.selectedProductSet}" selectedItem="{!v.selectedItem}" />
             </div>
-            <div class="slds-col slds-box slds-box_xx-small">
+            <div class="slds-col slds-box slds-box_xx-small slds-size_1-of-3" style="background-color: #3475ed">
                 <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}" productSetItems="{!v.productSetItems}"/>
             </div>
         </div>

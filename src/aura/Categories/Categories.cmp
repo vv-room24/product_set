@@ -23,22 +23,20 @@
 
     <lightning:layout >
         <lightning:layoutItem >
-        Categories:
+            <strong>Categories:</strong>
         </lightning:layoutItem>
         <lightning:layoutItem >
-            <lightning:accordion  aura:id="accordion" onsectiontoggle="{!c.handleAccordionSectionToggle}">
+            <lightning:accordion aura:id="accordion" onsectiontoggle="{!c.handleAccordionSectionToggle}">
                 <aura:iteration aura:id = "categoryIteration" items="{!v.categories}" var="category">
                     <lightning:accordionSection name="{!category}" label="{!category}" >
                         <aura:iteration items="{!v.categoryItems}" var="categoryItem">
                             <ol>
                                 <li>
                                     <div class="slds-p-around_xx-small slds-box slds-box_xx-small">
-                                        <span>
                                             {!categoryItem}
-                                        </span>
                                         <span class="slds-align_absolute-center" >
                                         <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}">
-                                            <lightning:icon iconName="utility:add" class="slds-icon slds-icon_small" size="xx-small" alternativeText="add" />
+                                            <lightning:icon iconName="utility:add" class="slds-icon slds-icon_xx-small" size="xx-small" alternativeText="add" />
                                         </lightning:button>
                                         </span>
                                     </div>

@@ -15,8 +15,8 @@
 
     <lightning:layout >
         <lightning:layoutItem >
-            <div class="slds-form-element">
-                <lightning:select class="select-container" aura:id = "selectProductSet" name = "Product Set Name" label="Product Set:" onchange="{!c.handleSelectProductSet}">
+            <div class="slds-form-element slds-text-title_bold">
+                <lightning:select aura:id = "selectProductSet" name = "Product Set Name" label="Product Set:" onchange="{!c.handleSelectProductSet}">
                     <option value="NULL"> -- Please select -- </option>
                     <aura:iteration items="{!v.productSets}" var="productSet">
                         <option text="{!productSet.label}" value="{!productSet.value}"/>

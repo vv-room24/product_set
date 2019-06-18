@@ -8,7 +8,7 @@
         helper.setTableData(component, event, helper);
     },
 
-    getSetDetalis : function (component, event, helper) {
+    getSetDetails : function (component, event, helper) {
         helper.getDetails(component);
         helper.setTableData(component, event, helper);
         helper.openModel(component, event, helper);

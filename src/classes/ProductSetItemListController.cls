@@ -7,12 +7,13 @@ public with sharing class ProductSetItemListController {
     @AuraEnabled
     public static List <String> getProductSetItems(Id productSetId){
         List <String> productItemsNames = new List<String>();
-        System.debug(productSetId);
-        for (Set_Item__c productItem : [SELECT Product_Item__r.Name, Product_Item__r.Category__c FROM Set_Item__c WHERE Product_Set__r.Id = : productSetId]){
+        for (Set_Item__c productItem : [SELECT Product_Item__r.Name, Product_Item__r.Category__c
+                                        FROM Set_Item__c
+                                        WHERE Product_Set__r.Id = : productSetId
+                                        ORDER BY Product_Item__r.Name]){
             productItemsNames.add(productItem.Product_Item__r.Name);
 
         }
-        System.debug(productItemsNames.size());
         return productItemsNames;
     }
 
@@ -27,9 +28,10 @@ public with sharing class ProductSetItemListController {
     @AuraEnabled
     public static List<Set_Item__c> getAllDetails(Id id){
         List<Set_Item__c> allDetails = [SELECT Name, Product_Set__r.Name, Product_Set__r.Total_Price__c, Product_Set__r.Highest_Item_Price__c,
-        Product_Set__r.Discount__c, Product_Item__r.Name, Product_Item__r.Price__c, Product_Item__r.Category__c
-        FROM Set_Item__c
-        WHERE Product_Set__c = : id];
+                                        Product_Set__r.Discount__c, Product_Item__r.Name, Product_Item__r.Price__c, Product_Item__r.Category__c
+                                        FROM Set_Item__c
+                                        WHERE Product_Set__c = : id
+                                        ORDER BY Product_Item__r.Name];
         return allDetails;
     }
 }

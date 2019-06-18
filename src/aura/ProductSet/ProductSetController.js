@@ -21,5 +21,10 @@
     handleRemoveCategoryItem : function (component, event, helper) {
         helper.handleRemoveCategoryItemEvent(component, event, helper);
         helper.getProductSetTotalPrice(component, event, helper);
+    },
+
+    handleWuffleButton : function (component, event, helper) {
+        helper.showToast(component, event, helper);
+
     }
 });
