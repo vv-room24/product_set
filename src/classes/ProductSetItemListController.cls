@@ -8,7 +8,7 @@ public with sharing class ProductSetItemListController {
     public static List <String> getProductSetItems(Id productSetId){
         List <String> productItemsNames = new List<String>();
         System.debug(productSetId);
-        for (Set_Item__c productItem : [SELECT Product_Item__r.Name FROM Set_Item__c WHERE Product_Set__r.Id = : productSetId]){
+        for (Set_Item__c productItem : [SELECT Product_Item__r.Name, Product_Item__r.Category__c FROM Set_Item__c WHERE Product_Set__r.Id = : productSetId]){
             productItemsNames.add(productItem.Product_Item__r.Name);
 
         }

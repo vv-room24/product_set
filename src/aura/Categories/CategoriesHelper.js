@@ -114,19 +114,24 @@
         for(var i = 0; i < products.length; i++){
             productNames.push(products[i].Name);
             }
-        if (!productNames.includes(selected)) {
-
-            var newProduct = new function () {
-                this.Name = selected, this.Category__c = selectedCategory
+        var newProduct = new function () {
+            this.Name = selected, this.Category__c = selectedCategory
             };
             products.push(newProduct);
             component.set("v.products", products);
             items.push(newProduct.Name);
             component.set("v.categoryItems", items.sort());
-        }else{
-            alert("Select right category");
 
-        }
+    },
+
+    showNullSetToast : function(component, event, helper) {
+        var toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams({
+            "title": "Error!",
+            "message": "Choose the set",
+            "type": "Error"
+        });
+        toastEvent.fire();
     }
 
 });

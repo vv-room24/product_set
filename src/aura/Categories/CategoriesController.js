@@ -17,8 +17,12 @@
     },
 
     removeItem : function (component, event, helper) {
-        helper.fireAddCategoryItemEvent(component, event, helper);
-        helper.updateCategoryItems(component, event, helper);
+        if (component.get("v.selectedProductSet") == null) {
+            helper.showNullSetToast(component, event, helper);
+        }else {
+            helper.fireAddCategoryItemEvent(component, event, helper);
+            helper.updateCategoryItems(component, event, helper);
+        }
     },
 
     handleRemovedItem : function (component, event, helper) {

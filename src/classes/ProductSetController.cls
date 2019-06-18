@@ -27,7 +27,7 @@ public with sharing class ProductSetController {
     @AuraEnabled
     public static List <String> getSetItems(Id productSetId) {
         List<String> productItems = new List<String>();
-        for (Set_Item__c productItem : [SELECT Product_Item__r.Name FROM Set_Item__c WHERE Product_Set__r.Id = :productSetId]) {
+        for (Set_Item__c productItem : [SELECT Product_Item__r.Name, Product_Item__r.Category__c FROM Set_Item__c WHERE Product_Set__r.Id = :productSetId]) {
             productItems.add(productItem.Product_Item__r.Name);
         }
         return productItems;
