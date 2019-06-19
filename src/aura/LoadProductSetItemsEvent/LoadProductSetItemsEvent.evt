@@ -4,4 +4,6 @@
 
 <aura:event type="COMPONENT" description="LoadProductSetItemsEvent">
     <aura:attribute name ="productSetId" type="Id"/>
+    <aura:attribute name="createFlag" type="Boolean"/>
+    <aura:attribute name="mainFlag" type="Boolean"/>
 </aura:event>

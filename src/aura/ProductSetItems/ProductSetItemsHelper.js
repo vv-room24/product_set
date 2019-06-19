@@ -24,13 +24,16 @@
             // helper.createRecord(component, event, helper);
             var createProductSetEvent = component.getEvent("createProductSet");
             createProductSetEvent.setParams({
-                "createFlag": true
+                "createFlag": true,
+                "mainFlag": false
             });
             createProductSetEvent.fire();
         }else {
             var selectedPSEvent = component.getEvent("changeProductSet");
             selectedPSEvent.setParams({
-                "productSetId": selected
+                "productSetId": selected,
+                "createFlag": false,
+                "mainFlag": true
             });
             selectedPSEvent.fire();
         }

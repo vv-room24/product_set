@@ -24,7 +24,11 @@
 
     handleSelectProductSetEvent : function (component, event, helper) {
         var selectedProductSet = event.getParam("productSetId");
+        var createFlag = event.getParam("createFlag");
+        var mainFormFlag = event.getParam("mainFlag");
         component.set("v.selectedProductSet", selectedProductSet);
+        component.set("v.newSetFormFlag", createFlag);
+        component.set("v.mainFormFlag", mainFormFlag);
         component.find("categories").getSetItems();
     },
 
@@ -125,7 +129,9 @@
 
     createNewProductSet : function (component, event, helper) {
         var createFlag = event.getParam("createFlag");
+        var mainFlag = event.getParam("mainFlag");
         component.set("v.newSetFormFlag", createFlag);
+        component.set("v.mainFormFlag", mainFlag);
     }
 
 });

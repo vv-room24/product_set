@@ -40,4 +40,14 @@ public with sharing class ProductSetItemListController {
         Product_Set__c newProductSet = new Product_Set__c(Name = name, Total_Price__c = 0, Highest_Item_Price__c = 0);
         insert newProductSet;
     }
+
+    @AuraEnabled
+    public static Product_Set__c getNewProductSet (String name){
+        Product_Set__c newProductSet = new Product_Set__c();
+        List <Product_Set__c> setlist = [SELECT Id, Name, Total_Price__c, Highest_Item_Price__c, Discount__c
+                                        FROM Product_Set__c
+                                        WHERE Name =: name];
+        newProductSet = setlist[0];
+        return newProductSet;
+    }
 }

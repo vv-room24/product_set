@@ -14,6 +14,7 @@
     <aura:attribute name = "dataColumns" type="List"/>
     <aura:attribute name = "newSetFormFlag" type="boolean" default="false"/>
     <aura:attribute name = "newProductSetName" type="String"/>
+    <aura:attribute name = "mainFormFlag" type="boolean" default="true"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
@@ -21,11 +22,9 @@
     <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
 
     <aura:if isTrue="{!v.newSetFormFlag}">
-
         <div>
             <strong>Name of new Product Set:</strong>
         </div>
-
         <div class="slds-grid slds-grid--wrap">
             <div class="slds-size_1-of-12"></div>
             <div class="slds-size_10-of-12">
@@ -35,7 +34,7 @@
                             <div class="slds-form-element__row">
                                 <div class="slds-form-element slds-size_1-of-2">
                                     <div class="slds-form-element__control">
-                                        <lightning:input aura:id = "inputName" variant="label-hidden" name="new set input" label="Hidden" placeholder="type name here..." value="{!v.newProductSetName}"/>
+                                        <lightning:input aura:id = "inputName" variant="label-hidden" name="new set input" label="Hidden" placeholder="type name here..." value="{!v.newProductSetName}" required="true"/>
                                     </div>
                                 </div>
                                 <div class="slds-form-element slds-size_1-of-2">
@@ -48,9 +47,9 @@
             </div>
             <div class="slds-size_1-of-12"></div>
         </div>
-
     </aura:if>
 
+    <aura:if isTrue="{!v.mainFormFlag}">
     <div>
         <strong>Name: {!v.productSetName}</strong>
     </div>
@@ -106,4 +105,5 @@
             <div class="slds-backdrop slds-backdrop_open"></div>
         </aura:if>
     </div>
+    </aura:if>
 </aura:component>
