@@ -116,6 +116,24 @@
             }));
             $A.enqueueAction(action);
         }
+    },
+
+    createNewProductSet : function (component, event, helper) {
+        var action = component.get("c.createNewProductSet");
+        var inputName = component.find("inputName").get("v.value");
+        action.setParams({
+            name: inputName
+        });
+
+        action.setCallback(this, $A.getCallback(function (response) {
+            var state = response.getState();
+            if (component.isValid() && state === "SUCCESS") {
+                component.set("v.newSetFormFlag", false);
+            } else {
+                console.log("Failed with state: " + state);
+            }
+        }));
+        $A.enqueueAction(action);
     }
 
 });

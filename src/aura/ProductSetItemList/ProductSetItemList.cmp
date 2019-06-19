@@ -13,6 +13,7 @@
     <aura:attribute name = "setData" type="Object"/>
     <aura:attribute name = "dataColumns" type="List"/>
     <aura:attribute name = "newSetFormFlag" type="boolean" default="false"/>
+    <aura:attribute name = "newProductSetName" type="String"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="change" action="{!c.doInit}" value="{!v.productSetId}"/>
@@ -34,11 +35,11 @@
                             <div class="slds-form-element__row">
                                 <div class="slds-form-element slds-size_1-of-2">
                                     <div class="slds-form-element__control">
-                                        <lightning:input variant="label-hidden" name="new set input" label="Hidden" placeholder="type name here..."/>
+                                        <lightning:input aura:id = "inputName" variant="label-hidden" name="new set input" label="Hidden" placeholder="type name here..." value="{!v.newProductSetName}"/>
                                     </div>
                                 </div>
                                 <div class="slds-form-element slds-size_1-of-2">
-                                    <lightning:button variant="brand" label="Create"/>
+                                    <lightning:button variant="brand" label="Create" onclick="{!c.handleCreateNewProductSet}"/>
                                 </div>
                             </div>
                         </div>

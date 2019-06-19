@@ -34,4 +34,10 @@ public with sharing class ProductSetItemListController {
                                         ORDER BY Product_Item__r.Name];
         return allDetails;
     }
+
+    @AuraEnabled
+    public static void createNewProductSet(String name){
+        Product_Set__c newProductSet = new Product_Set__c(Name = name, Total_Price__c = 0, Highest_Item_Price__c = 0);
+        insert newProductSet;
+    }
 }
