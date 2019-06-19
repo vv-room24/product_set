@@ -121,6 +121,11 @@
             "type": "Warning"
         });
         toastEvent.fire();
+    },
+
+    createNewProductSet : function (component, event, helper) {
+        var createFlag = event.getParam("createFlag");
+        component.set("v.newSetFormFlag", createFlag);
     }
 
 });

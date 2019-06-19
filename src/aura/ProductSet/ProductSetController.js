@@ -26,5 +26,9 @@
     handleWuffleButton : function (component, event, helper) {
         helper.showToast(component, event, helper);
 
+    },
+
+    handleNewProductSet : function (component, event, helper) {
+        helper.createNewProductSet(component, event, helper);
     }
 });

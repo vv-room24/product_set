@@ -10,11 +10,13 @@
     <aura:attribute name = "title" type="String" default=" Product Sets"/>
     <aura:attribute name = "productSetItems" type="List" access="public"/>
     <aura:attribute name = "selectedItem" type="String" access="public"/>
+    <aura:attribute name = "newSetFormFlag" type="boolean" default="false"/>
 
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="changeProductSet" event="c:LoadProductSetItemsEvent" action="{!c.handleSelectProductSet}"/>
     <aura:handler name="addCategoryItem" event="c:AddCategoryItemEvent" action="{!c.handleAddCategoryItem}"/>
     <aura:handler name="removeCategoryItem" event="c:RemoveCategoryItemEvent" action="{!c.handleRemoveCategoryItem}"/>
+    <aura:handler name="createProductSet" event="c:CreateNewProductSetEvent" action="{!c.handleNewProductSet}"/>
 
     <div class="c-container slds-box_small">
         <div class="slds-box">
@@ -49,7 +51,7 @@
                 <c:Categories aura:id = "categories" selectedProductSet="{!v.selectedProductSet}" selectedItem="{!v.selectedItem}" />
             </div>
             <div class="slds-col slds-box slds-box_xx-small slds-size_1-of-3" style="background-color: #3475ed">
-                <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}" productSetItems="{!v.productSetItems}"/>
+                <c:ProductSetItemList productSetId="{!v.selectedProductSet}" productSetName="{!v.productSetName}" productSetTotalPrice="{!v.productSetTotalPrice}" productSetItems="{!v.productSetItems}" newSetFormFlag="{!v.newSetFormFlag}"/>
             </div>
         </div>
 

@@ -1,0 +1,7 @@
+<!--
+ - Created by vvermiichuk on 19.06.2019.
+ -->
+
+<aura:event type="COMPONENT" description="CreateNewProductSetEvent">
+    <aura:attribute name="createFlag" type="Boolean"/>
+</aura:event>

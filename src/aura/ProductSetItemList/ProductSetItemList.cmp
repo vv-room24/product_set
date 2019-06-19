@@ -19,6 +19,37 @@
 
     <aura:registerEvent name="removeCategoryItem" type="c:RemoveCategoryItemEvent"/>
 
+    <aura:if isTrue="{!v.newSetFormFlag}">
+
+        <div>
+            <strong>Name of new Product Set:</strong>
+        </div>
+
+        <div class="slds-grid slds-grid--wrap">
+            <div class="slds-size_1-of-12"></div>
+            <div class="slds-size_10-of-12">
+                <fieldset class="slds-form-element slds-form_compound">
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__group">
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <div class="slds-form-element__control">
+                                        <lightning:input variant="label-hidden" name="new set input" label="Hidden" placeholder="type name here..."/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <lightning:button variant="brand" label="Create"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="slds-size_1-of-12"></div>
+        </div>
+
+    </aura:if>
+
     <div>
         <strong>Name: {!v.productSetName}</strong>
     </div>

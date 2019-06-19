@@ -12,6 +12,7 @@
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
 
     <aura:registerEvent name = "changeProductSet" type="c:LoadProductSetItemsEvent"/>
+    <aura:registerEvent name = "createProductSet" type="c:CreateNewProductSetEvent"/>
 
     <lightning:layout >
         <lightning:layoutItem >

@@ -21,7 +21,12 @@
     fireSelectProductSetEvent : function (component, event, helper) {
         var selected = component.find("selectProductSet").get("v.value");
         if (selected === component.find("createNewSetButton").get("v.label")){
-            helper.createRecord(component, event, helper);
+            // helper.createRecord(component, event, helper);
+            var createProductSetEvent = component.getEvent("createProductSet");
+            createProductSetEvent.setParams({
+                "createFlag": true
+            });
+            createProductSetEvent.fire();
         }else {
             var selectedPSEvent = component.getEvent("changeProductSet");
             selectedPSEvent.setParams({
