@@ -22,7 +22,7 @@
                     <aura:iteration items="{!v.productSets}" var="productSet">
                         <option text="{!productSet.label}" value="{!productSet.value}"/>
                     </aura:iteration>
-                    <option value="+ New Set">
+                    <option value="+ New Set" style="color: blue; font-style: italic;">
                         <lightning:button aura:id = "createNewSetButton" name="New" label="+ New Set"/>
                     </option>
                 </lightning:select>

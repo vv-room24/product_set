@@ -32,13 +32,28 @@
                         <aura:iteration items="{!v.categoryItems}" var="categoryItem">
                             <ol>
                                 <li>
-                                    <div class="slds-p-around_xx-small slds-box slds-box_xx-small">
-                                            {!categoryItem}
-                                        <span class="slds-align_absolute-center" >
-                                        <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}">
-                                            <lightning:icon iconName="utility:add" class="slds-icon slds-icon_xx-small" size="xx-small" alternativeText="add" />
-                                        </lightning:button>
-                                        </span>
+                                    <div class="slds-grid slds-grid--wrap">
+                                        <div class="slds-size_11-of-12">
+                                            <fieldset class="slds-form-element slds-form_compound">
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__group">
+                                                        <div class="slds-form-element__row">
+                                                            <div class="slds-form-element slds-size_1-of-2">
+                                                                <div class="slds-form-element__control">
+                                                                    {!categoryItem}
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form-element slds-size_1-of-2">
+                                                                <lightning:button  class="slds-button slds-button_inverse" label="+" name="add product" value="{!categoryItem}" onclick="{!c.removeItem}">
+                                                                    <lightning:icon iconName="utility:add" class="slds-icon slds-icon_xx-small" size="xx-small" alternativeText="add" />
+                                                                </lightning:button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="slds-size_1-of-12"></div>
                                     </div>
                                 </li>
                             </ol>

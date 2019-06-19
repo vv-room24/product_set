@@ -2,12 +2,12 @@
  * Created by vvermiichuk on 12.06.2019.
  */
 
-.THIS.accordion-container {
-    horiz-align: right;
+.THIS.button-icon-container {
+    background-color: black;
 }
 
-.THIS.button-container {
-    horiz-align: right;
-}
+/*.THIS.button-container {*/
+/*    horiz-align: right;*/
+/*}*/
 
 

@@ -121,20 +121,23 @@
     createNewProductSet : function (component, event, helper) {
         var action = component.get("c.createNewProductSet");
         var inputName = component.find("inputName").get("v.value");
-        action.setParams({
-            name: inputName
-        });
-        action.setCallback(this, $A.getCallback(function (response) {
-            var state = response.getState();
-            if (component.isValid() && state === "SUCCESS") {
-                component.set("v.newSetFormFlag", false);
-                component.set("v.mainFormFlag", true);
-            } else {
-                console.log("Failed with state: " + state);
-            }
-        }));
-        $A.enqueueAction(action);
-        helper.getDataForNewProductSet(component, event, helper);
+        var inputCmp = component.find("inputName");
+        if (inputName.length < 1){
+            inputCmp.setCustomValidity('Enter the name');
+        }else {
+            action.setParams({
+                name: inputName
+            });
+            action.setCallback(this, $A.getCallback(function (response) {
+                var state = response.getState();
+                if (component.isValid() && state === "SUCCESS") {
+                    helper.getDataForNewProductSet(component, event, helper);
+                } else {
+                    console.log("Failed with state: " + state);
+                }
+            }));
+            $A.enqueueAction(action);
+        }
     },
 
     getDataForNewProductSet : function (component, event, helper) {
@@ -150,6 +153,8 @@
                 component.set("v.productSetId", newProductSet.Id);
                 component.set("v.productSetName", newProductSet.Name);
                 component.set("v.productSetTotalPrice", newProductSet.Total_Price__c);
+                component.set("v.newSetFormFlag", false);
+                component.set("v.mainFormFlag", true);
             } else {
                 console.log("Failed with state: " + state);
             }

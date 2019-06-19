@@ -22,6 +22,11 @@
         var selected = component.find("selectProductSet").get("v.value");
         if (selected === component.find("createNewSetButton").get("v.label")){
             // helper.createRecord(component, event, helper);
+            var selectedPSEvent = component.getEvent("changeProductSet");
+            selectedPSEvent.setParams({
+                "productSetId": null
+            });
+            selectedPSEvent.fire();
             var createProductSetEvent = component.getEvent("createProductSet");
             createProductSetEvent.setParams({
                 "createFlag": true,
@@ -37,19 +42,19 @@
             });
             selectedPSEvent.fire();
         }
-    },
-
-    createRecord : function (component, event, helper) {
-        var createNewProductSet = $A.get("e.force:createRecord");
-        createNewProductSet.setParams({
-            "entityApiName": "Product_Set__c",
-            "defaultFieldValues": {
-                'Name' : component.get("v.newSetName"),
-                'Total_Price__c' : 0,
-                'Highest_Item_Price__c' : 0
-            }
-        });
-        createNewProductSet.fire();
     }
+
+    // createRecord : function (component, event, helper) {
+    //     var createNewProductSet = $A.get("e.force:createRecord");
+    //     createNewProductSet.setParams({
+    //         "entityApiName": "Product_Set__c",
+    //         "defaultFieldValues": {
+    //             'Name' : component.get("v.newSetName"),
+    //             'Total_Price__c' : 0,
+    //             'Highest_Item_Price__c' : 0
+    //         }
+    //     });
+    //     createNewProductSet.fire();
+    // }
 
 });
