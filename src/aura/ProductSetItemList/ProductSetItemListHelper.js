@@ -124,7 +124,6 @@
         action.setParams({
             name: inputName
         });
-        helper.getDataForNewProductSet(component, event, helper);
         action.setCallback(this, $A.getCallback(function (response) {
             var state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
@@ -135,6 +134,7 @@
             }
         }));
         $A.enqueueAction(action);
+        helper.getDataForNewProductSet(component, event, helper);
     },
 
     getDataForNewProductSet : function (component, event, helper) {

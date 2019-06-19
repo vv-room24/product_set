@@ -34,7 +34,9 @@
                             <div class="slds-form-element__row">
                                 <div class="slds-form-element slds-size_1-of-2">
                                     <div class="slds-form-element__control">
-                                        <lightning:input aura:id = "inputName" variant="label-hidden" name="new set input" label="Hidden" placeholder="type name here..." value="{!v.newProductSetName}" required="true"/>
+                                        <lightning:input aura:id = "inputName" variant="label-hidden" name="new set input"
+                                                         label="Hidden" placeholder="type name here..." value="{!v.newProductSetName}"
+                                                         required="true"/>
                                     </div>
                                 </div>
                                 <div class="slds-form-element slds-size_1-of-2">
