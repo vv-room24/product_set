@@ -23,5 +23,12 @@
     display: none;
 }
 
+.THIS footer {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    color: #fff;
+}
+
 
 

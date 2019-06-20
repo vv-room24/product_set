@@ -13,7 +13,6 @@
     <aura:attribute name = "newSetFormFlag" type="boolean" default="false"/>
     <aura:attribute name = "mainFormFlag" type="boolean" default="true"/>
 
-
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
     <aura:handler name="changeProductSet" event="c:LoadProductSetItemsEvent" action="{!c.handleSelectProductSet}"/>
     <aura:handler name="addCategoryItem" event="c:AddCategoryItemEvent" action="{!c.handleAddCategoryItem}"/>
@@ -58,7 +57,10 @@
                                       newSetFormFlag="{!v.newSetFormFlag}" mainFormFlag="{!v.mainFormFlag}"/>
             </div>
         </div>
-
+        <footer>
+            <p>© 2019 VV</p>
+        </footer>
     </div>
+
 
 </aura:component>
