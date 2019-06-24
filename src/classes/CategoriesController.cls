@@ -3,6 +3,7 @@
  */
 
 public with sharing class CategoriesController {
+    
 
     @AuraEnabled
     public static List <Product_Item__c> getProductItems(){
