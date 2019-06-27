@@ -4,7 +4,9 @@
 
 public with sharing class CategoriesController {
 
-
+    /**
+     * get List of Product Items
+     */
     @AuraEnabled
     public static List <Product_Item__c> getProductItems(){
 
@@ -14,6 +16,9 @@ public with sharing class CategoriesController {
     }
 
 
+    /**
+     * get List of SetItems with appropriate records of Item & Set
+     */
     @AuraEnabled
     public static List <Set_Item__c> getSetItems(){
 
@@ -26,6 +31,9 @@ public with sharing class CategoriesController {
     }
 
 
+    /**
+     * get List of Product Items with excluded Items from selcted Product Set
+     */
     @AuraEnabled
     public static List <Product_Item__c> avoidProductSetItems(Id selectedProductSet){
 
@@ -52,7 +60,7 @@ public with sharing class CategoriesController {
                     newProducts.add(products[i]);
                 }
             }
-        
+
         return newProducts;
     }
 }
